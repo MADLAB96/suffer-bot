@@ -11,7 +11,12 @@ logger.add(logger.transports.Console, {
 logger.level = 'debug';
 
 client.on('ready', function (evt) {
-    logger.info('Connected');
+    var list = [];
+    client.channels.forEach(channel => {
+        list.push(channel.name)
+    });
+    logger.info('Connected to: ' + list);
+    logger.info('Started.');
 });
 client.on('message', function (msg) {
     if (msg.author.username === "Jasper") {
@@ -26,7 +31,6 @@ client.on('message', function (msg) {
         args = args.splice(1);
 
         switch(cmd) {
-            // !ping
             case 'ping':
                 msg.channel.send('Pong!')
                     .then(msg => logger.info(`Sent message replying to ${msg.author.id}.`));
@@ -34,10 +38,13 @@ client.on('message', function (msg) {
             case 'source':
                 msg.channel.send(`${msg.author} https://github.com/MADLAB96/suffer-bot`);
                 break;
+            case 'help':
+                msg.channel.send(`I can't even help myself :gun:`);
+            case 'sharren':
+                msg.channel.send('why did she leave me');
             default:
                 msg.channel.send('Unknown Command :b:ussy');
-            // Just add any case commands if you want to..
-         }
+        }
     } 
 });
 
