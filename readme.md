@@ -10,5 +10,7 @@ barebones discord bot for personal use, will hopefully become something useful o
 * install node.js & npm latest
 `npm install`
 `npm start`
+* adding and modifying `auth.json`.
+    * just create a file called `auth.json` and add your token like this to the file: `{ "token": "YOUR_TOKEN_HERE" }`
 
 https://discordapp.com/oauth2/authorize?&client_id=YOUR_CLIENT_ID_HERE&scope=bot&permissions=0
