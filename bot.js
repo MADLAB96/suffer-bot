@@ -58,6 +58,8 @@ client.on('message', function (msg) {
             case 'sharren':
                 msg.channel.send('why did she leave me :cry:');
                 break;
+            case 'karen':
+                msg.channel.send(':100: if she breaths :100:');
             case 'water': 
                 const water = new Attachment('./data/water.jpg')
                 msg.channel.send(water);
