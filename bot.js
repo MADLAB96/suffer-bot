@@ -23,21 +23,14 @@ client.on('ready', function (evt) {
 });
 
 client.on('message', function (msg) {
-    var filteredMsg = filter(msg.content);
-    
-    if(filteredMsg === null) {
-        msg.channel.send('No swears allowed :sweat_smile:');
-        msg.delete();
-    } else if(filteredMsg.ifFiltered) {
-        msg.edit(filteredMsg.message);
-    }
+    // var filteredMsg = filter(msg.content, msg);
 
-
-    if (msg.author.username === "Jasper") {
-        msg.channel.send('@Jasper#9254 *shhh*');
-        msg.delete();
-    }
-    else
+    // NO jasp
+    // if (msg.author.username === "Jasper") {
+    //     msg.channel.send('@Jasper#9254 *shhh*');
+    //     msg.delete();
+    // }
+    // else // text commands
     if (msg.content.substring(0, 1) == '!') {
         var args = msg.content.substring(1).split(' ');
         var cmd = args[0];
@@ -60,6 +53,10 @@ client.on('message', function (msg) {
                 break;
             case 'karen':
                 msg.channel.send(':100: if she breaths :100:');
+                break;
+            case 'oceanman':
+                msg.channel.send("https://www.youtube.com/watch?v=6E5m_XtCX3c");
+                break;
             case 'water': 
                 const water = new Attachment('./data/water.jpg')
                 msg.channel.send(water);
@@ -70,4 +67,5 @@ client.on('message', function (msg) {
     } 
 });
 
+// authentication
 client.login(auth.token);
