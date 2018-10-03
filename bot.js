@@ -5,6 +5,8 @@ var client = new Client();
 var logger = require('winston');
 var auth = require('./auth.json');
 var filter = require('./filter.js');
+var _request = require('request');
+var fs = require('fs');
 
 // Configure logger settings
 logger.remove(logger.transports.Console);
@@ -22,15 +24,32 @@ client.on('ready', function (evt) {
     logger.info('Started.');
 });
 
+//get random xkcd comic
+function xkcd(msg) {    
+    var baseURL = "http://xkcd.com/";
+    var jsonURL = "info.0.json";
+    _request((baseURL+jsonURL), function(err, res, body) {        
+        var comic = JSON.parse(body);
+        fs.writeFile("test", body);
+        var randComic = 1 + Math.floor(Math.random() * Math.floor(comic.num));
+
+        _request(`${baseURL}${randComic}/${jsonURL}`, function(err, res, body) {
+            var comic = JSON.parse(body);        
+            msg.channel.send(comic.title+"\n"+comic.img,function(){
+                msg.channel.send(comic.alt);
+            });
+        });
+    });    
+}
+
 client.on('message', function (msg) {
-    // var filteredMsg = filter(msg.content, msg);
+    filter(msg);
 
     // NO jasp
     // if (msg.author.username === "Jasper") {
     //     msg.channel.send('@Jasper#9254 *shhh*');
     //     msg.delete();
-    // }
-    // else // text commands
+    // } else
     if (msg.content.substring(0, 1) == '!') {
         var args = msg.content.substring(1).split(' ');
         var cmd = args[0];
@@ -60,6 +79,12 @@ client.on('message', function (msg) {
             case 'water': 
                 const water = new Attachment('./data/water.jpg')
                 msg.channel.send(water);
+                break;
+            case 'rocket': 
+                msg.channel.send(`((_)=======D~~~~~`);
+                break;
+            case 'xkcd':
+                xkcd(msg);
                 break;
             default:
                 msg.channel.send('Unknown Command :b:ussy');
