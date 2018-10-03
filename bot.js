@@ -6,6 +6,7 @@ var logger = require('winston');
 var auth = require('./auth.json');
 var filter = require('./filter.js');
 var _request = require('request');
+var songs = require("./data/songs.json");
 
 // Configure logger settings
 logger.remove(logger.transports.Console);
@@ -37,7 +38,7 @@ function xkcd(msg) {
                 msg.channel.send(comic.alt);
             });
         });
-    });    
+    });
 }
 
 client.on('message', function (msg) {
@@ -83,6 +84,9 @@ client.on('message', function (msg) {
                 break;
             case 'xkcd':
                 xkcd(msg);
+                break;
+            case 'noid':
+                msg.channel.send(`*${songs.noid}*`, { tts: true });
                 break;
             default:
                 msg.channel.send('Unknown Command :b:ussy');
