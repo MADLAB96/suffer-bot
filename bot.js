@@ -6,7 +6,6 @@ var logger = require('winston');
 var auth = require('./auth.json');
 var filter = require('./filter.js');
 var _request = require('request');
-var fs = require('fs');
 
 // Configure logger settings
 logger.remove(logger.transports.Console);
@@ -30,7 +29,6 @@ function xkcd(msg) {
     var jsonURL = "info.0.json";
     _request((baseURL+jsonURL), function(err, res, body) {        
         var comic = JSON.parse(body);
-        fs.writeFile("test", body);
         var randComic = 1 + Math.floor(Math.random() * Math.floor(comic.num));
 
         _request(`${baseURL}${randComic}/${jsonURL}`, function(err, res, body) {
