@@ -31,10 +31,10 @@ function xkcd(msg) {
     _request((baseURL+jsonURL), function(err, res, body) {        
         var comic = JSON.parse(body);
         var randComic = 1 + Math.floor(Math.random() * Math.floor(comic.num));
-
         _request(`${baseURL}${randComic}/${jsonURL}`, function(err, res, body) {
             var comic = JSON.parse(body);        
-            msg.channel.send(comic.title+"\n"+comic.img,function(){
+            var infoMsg = `${randComic}: ${comic.title}\n${comic.img}`;       
+            msg.channel.send(infoMsg, () => {
                 msg.channel.send(comic.alt);
             });
         });
