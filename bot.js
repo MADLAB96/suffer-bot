@@ -1,12 +1,14 @@
 'use strict';
 
 var {Client, Attachment} = require('discord.js');
-var client = new Client();
+// var client = new Client();
 var logger = require('winston');
 var auth = require('./auth.json');
 var filter = require('./filter.js');
 var _request = require('request');
 var songs = require("./data/songs.json");
+var commando = require("discord.js-commando");
+var path = require('path');
 
 // Configure logger settings
 logger.remove(logger.transports.Console);
@@ -14,6 +16,11 @@ logger.add(logger.transports.Console, {
     colorize: true
 });
 logger.level = 'debug';
+
+const client = new commando.Client({
+    owner: '209463572395196417',
+    commandPrefix: "~"
+});
 
 client.on('ready', function (evt) {
     var list = [];
@@ -24,26 +31,8 @@ client.on('ready', function (evt) {
     logger.info('Started.');
 });
 
-//get random xkcd comic
-function xkcd(msg) {    
-    var baseURL = "http://xkcd.com/";
-    var jsonURL = "info.0.json";
-    _request((baseURL+jsonURL), function(err, res, body) {        
-        var comic = JSON.parse(body);
-        var randComic = 1 + Math.floor(Math.random() * Math.floor(comic.num));
-        _request(`${baseURL}${randComic}/${jsonURL}`, function(err, res, body) {
-            var comic = JSON.parse(body);        
-            var infoMsg = `${randComic}: ${comic.title}\n${comic.img}`;       
-            msg.channel.send(infoMsg, () => {
-                msg.channel.send(comic.alt);
-            });
-        });
-    });
-}
-
 client.on('message', function (msg) {
     filter(msg);
-
     // NO jasp
     // if (msg.author.username === "Jasper") {
     //     msg.channel.send('@Jasper#9254 *shhh*');
@@ -56,10 +45,6 @@ client.on('message', function (msg) {
         args = args.splice(1);
 
         switch(cmd) {
-            case 'ping':
-                msg.channel.send('Pong!')
-                    .then(msg => logger.info(`Sent message replying to ${msg.author}.`));
-                break;
             case 'source':
                 msg.channel.send(`${msg.author} https://github.com/MADLAB96/suffer-bot`);
                 break;
@@ -82,9 +67,6 @@ client.on('message', function (msg) {
             case 'rocket': 
                 msg.channel.send(`((_)=======D~~~~~`);
                 break;
-            case 'xkcd':
-                xkcd(msg);
-                break;
             case 'noid':
                 msg.channel.send(`*${songs.noid}*`, { tts: true });
                 break;
@@ -93,6 +75,11 @@ client.on('message', function (msg) {
         }
     } 
 });
+
+client.registry
+        .registerGroup('fun', 'Fun')
+        .registerDefaults()
+        .registerCommandsIn(path.join(__dirname, './src/commands'));
 
 // authentication
 client.login(auth.token);
