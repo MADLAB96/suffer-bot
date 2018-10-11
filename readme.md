@@ -20,7 +20,6 @@ url to add your bot to the server *i kept forgetting where it was*
 
 https://discordapp.com/oauth2/authorize?&client_id=YOUR_CLIENT_ID_HERE&scope=bot&permissions=0
 
-###Todo
- - command organization
-    - more commands
+### Todo
+ - more commands
  - more uptime
