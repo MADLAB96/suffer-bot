@@ -33,10 +33,10 @@ module.exports = class Dog extends commando.Command {
         console.log(args);
         if(args.subBreed != "random") {
             var subBreedURL = subURL + args.breed + '/' + args.subBreed + '/images/random';
-            _request(subBreedURL, function(err, res, body) {
+            _request(subBreedURL.toLowerCase(), function(err, res, body) {
                 if(err || res.statusCode != 200) {
                     msg.channel.send(`${msg.author} breed: '${args.breed}' or subbreed: ${args.subBreed} not found. Sub-breed list found here:
-                                        https://dog.ceo/api/breed/${args.breed}/lis
+                                        https://dog.ceo/api/breed/${args.breed}/list
                                         `);
                 } else {
                     var JSDOG = JSON.parse(body);
@@ -45,7 +45,7 @@ module.exports = class Dog extends commando.Command {
             });
         } else if(args.breed != "random") {
             var breedURL = subURL + args.breed + '/images/random';
-            _request(breedURL, function(err, res, body) {
+            _request(breedURL.toLowerCase(), function(err, res, body) {
                 if(err || res.statusCode != 200) {
                     msg.channel.send(`${msg.author} breed: '${args.breed}' not found. List found here:
                                         https://dog.ceo/api/breeds/list/all
@@ -56,7 +56,7 @@ module.exports = class Dog extends commando.Command {
                 }
             });    
         } else {
-            _request(randomURL, function(err, res, body) {
+            _request(randomURL.toLowerCase(), function(err, res, body) {
                 if(err || res.statusCode != 200) {
                     msg.channel.send(`dog API === borked`);
                 } else {

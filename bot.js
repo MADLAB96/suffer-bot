@@ -73,6 +73,9 @@ client.on('message', function (msg) {
             case 'swang':
                 msg.channel.send(`https://youtu.be/lg_sd_EpTDs`);         
                 break;   
+            case 'squat':
+                msg.channel.send(`https://www.youtube.com/watch?v=rGVCrvvLuOc`);
+                break;
             default:
                 msg.channel.send('Unknown Command :b:ussy');
         }
