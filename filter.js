@@ -4,7 +4,9 @@ var logger = require('winston');
 // list of banned words
 var banned = [
     "furry",
-    "die"
+    "die",
+    "犬",
+    "daddy",
 ]
 
 function filter(msg) {

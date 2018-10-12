@@ -70,6 +70,9 @@ client.on('message', function (msg) {
             case 'noid':
                 msg.channel.send(`*${songs.noid}*`, { tts: true });
                 break;
+            case 'swang':
+                msg.channel.send(`https://youtu.be/lg_sd_EpTDs`);         
+                break;   
             default:
                 msg.channel.send('Unknown Command :b:ussy');
         }
