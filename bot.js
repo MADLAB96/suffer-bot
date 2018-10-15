@@ -32,7 +32,7 @@ client.on('ready', function (evt) {
 });
 
 client.on('message', function (msg) {
-    filter(msg);
+    // filter(msg);
     // NO jasp
     // if (msg.author.username === "Jasper") {
     //     msg.channel.send('@Jasper#9254 *shhh*');
