@@ -36,8 +36,7 @@ module.exports = class Dog extends commando.Command {
             _request(subBreedURL.toLowerCase(), function(err, res, body) {
                 if(err || res.statusCode != 200) {
                     msg.channel.send(`${msg.author} breed: '${args.breed}' or subbreed: ${args.subBreed} not found. Sub-breed list found here:
-                                        https://dog.ceo/api/breed/${args.breed}/list
-                                        `);
+                                        https://dog.ceo/api/breed/${args.breed}/list`);
                 } else {
                     var JSDOG = JSON.parse(body);
                     msg.channel.send(JSDOG.message);
@@ -48,8 +47,7 @@ module.exports = class Dog extends commando.Command {
             _request(breedURL.toLowerCase(), function(err, res, body) {
                 if(err || res.statusCode != 200) {
                     msg.channel.send(`${msg.author} breed: '${args.breed}' not found. List found here:
-                                        https://dog.ceo/api/breeds/list/all
-                                        `);
+                                        https://dog.ceo/api/breeds/list/all`);
                 } else {
                     var JSDOG = JSON.parse(body);
                     msg.channel.send(JSDOG.message);
