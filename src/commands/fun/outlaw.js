@@ -6,14 +6,11 @@ var Outlaw = require('../../classes/outlaw');
 
 function ifAuthorHasOutlaw(author) {
     var found = false;
-    fs.readFile(outlawStorage, 'utf8', (err, data) => {
-        if(err) {
-            console.log(err);
-        } else {
-            var obj = JSON.parse(data);
-            obj.outlaws.forEach(outlaw => {
-                if(outlaw.author === author.id) { found = true; }
-            });
+    var data = fs.readFileSync(outlawStorage, 'utf8');
+    var obj = JSON.parse(data);
+    obj.outlaws.forEach(outlaw => {
+        if(outlaw.author === author.id) { 
+            found = true;
         }
     });
     return found;
@@ -44,7 +41,7 @@ function sendDesc(msg) {
         } else {
             var obj = JSON.parse(data);
             obj.outlaws.forEach(outlaw => {
-                if(outlaw.author === msg.author.id) { 
+                if(outlaw.author === msg.author.id) {
                     found = true;
                     msg.channel.send(`${msg.author}\n${outlaw.nickname} Wanted Dead or Alive\nFor ${outlaw.kills} kills\nReward $$ ${outlaw.bounty} $$`);
                 }
@@ -82,17 +79,22 @@ module.exports = class OutlawCMD extends commando.Command {
         });
     }
     async run(msg, args) {
-        console.log(args);
         if(args.name === "give-description" && args.desc === "give-description") {
             // TODO send detail message
             sendDesc(msg);
-        } else if(ifAuthorHasOutlaw(msg.author)) {
-            // send msg that outlaw exists
-            msg.channel.send(`${msg.author} you already have an outlaw: asdf.`);
-        } else {
+        } else if(!ifAuthorHasOutlaw(msg.author)) {
             // create and store outlaw
             var outlaw = new Outlaw(msg.author, args.name, args.desc);
             store(msg, outlaw);
+        } else {
+            // send msg that outlaw exists
+            var data = fs.readFileSync(outlawStorage, 'utf8');
+            var obj = JSON.parse(data);
+            obj.outlaws.forEach(outlaw => {
+                if(outlaw.author === msg.author.id) {
+                    msg.channel.send(`${msg.author} already has an outlaw named: ${outlaw.nickname}`);
+                }
+            });
         }
     }
 }

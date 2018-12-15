@@ -34,8 +34,8 @@ client.on('ready', function (evt) {
 client.on('message', function (msg) {
     // filter(msg);
     // NO jasp
-    // if (msg.author.username === "Jasper") {
-    //     msg.channel.send('@Jasper#9254 *shhh*');
+    // if (msg.author.id === "60598968731574272") {
+    //     msg.channel.send(`${msg.author} shh :gun:`);
     //     msg.delete();
     // } else
     if (msg.content.substring(0, 1) == '!') {
