@@ -7,6 +7,7 @@ module.exports = class Cat extends commando.Command {
         super(client, {
             name: "cat",
             description: "random cat",
+            aliases: ["kitty", "meow"],
             group: 'fun',
             memberName: "cat",
             examples: ["!cat"],
