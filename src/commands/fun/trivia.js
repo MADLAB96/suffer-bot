@@ -59,8 +59,6 @@ module.exports = class Trivia extends commando.Command {
     }
     async run(msg, args) {
         const path = this.createPath(args.category, args.difficulty);
-        console.log(args);
-        console.log(path);
         _request(path, function(err, res, body) {
             try {
                 let data = JSON.parse(body);
@@ -74,12 +72,13 @@ module.exports = class Trivia extends commando.Command {
                     .addField('Difficulty', h2p(data.results[0].difficulty))
                     .addField('Question', h2p(data.results[0].question))
                     .addField('Choices', choices
-                                .map((str, i) => `(${i+1}) ${format(str)}`).join("\n"));
+                                .map((str, i) => `(${i+1}) ${h2p(str)}`).join("\n"));
 
                 msg.channel.send(embed);
 
                 let collector = msg.channel.createMessageCollector(m => {
                     if(m.author === 496343023266037761) return false;
+                    if(!(m.author === msg.author)) return false;
                     let guess = parseInt(m.content);
                     if(!guess) return false;
                     else if(choices[guess - 1] === data.results[0].correct_answer) {
@@ -114,25 +113,6 @@ module.exports = class Trivia extends commando.Command {
 }
 
 // 'https://opentdb.com/api.php?amount=1&category=12&difficulty=hard&type=multiple'
-
-function format(str) {
-    // let regex = '/&quot;/&#039;/gi';
-    str = str.replace("&#039;", "'");
-    str = str.replace("&#039;", "'");
-    str = str.replace("&#039;", "'");
-    str = str.replace("&#039;", "'");
-    str = str.replace("&quot;", '"');
-    str = str.replace("&quot;", '"');
-    str = str.replace("&quot;", '"');
-    str = str.replace("&quot;", '"');
-    return str;
-}
-
-// function checkChoice(a, choices, ) {
-//     choices.forEach((c) => {
-        
-//     })
-// }
 
 function randomizeChoices(correct, incorrect) {
     incorrect.push(correct);
