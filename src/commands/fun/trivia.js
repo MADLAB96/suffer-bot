@@ -112,8 +112,6 @@ module.exports = class Trivia extends commando.Command {
     }
 }
 
-// 'https://opentdb.com/api.php?amount=1&category=12&difficulty=hard&type=multiple'
-
 function randomizeChoices(correct, incorrect) {
     incorrect.push(correct);
     let i, j, temp;
