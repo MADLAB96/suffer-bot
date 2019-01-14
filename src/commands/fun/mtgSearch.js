@@ -5,7 +5,7 @@ var _request = require('request');
 const FUZZY_URL = "https://api.scryfall.com/cards/named?fuzzy=";
 const RANDOM_URL = "https://api.scryfall.com/cards/random";
 
-module.exports = class Mtg extends commando.Command {
+module.exports = class MtgSearch extends commando.Command {
     constructor(client) {
         super(client, {
             name: "mtg",
@@ -30,7 +30,6 @@ module.exports = class Mtg extends commando.Command {
         if(args.cardName != "random") {
             let cardName = args.cardName.join("+");
             _request((FUZZY_URL + cardName), function(err, res, body) {
-                // console.log(body);
                 if(err || res.statusCode != 200) {
                     // msg.channel.send(`${msg.author} breed: '${args.breed}' or subbreed: ${args.subBreed} not found. Sub-breed list found here:
                     //                     https://dog.ceo/api/breed/${args.breed}/list`);
