@@ -31,8 +31,9 @@ module.exports = class MtgSearch extends commando.Command {
         if(args.cardName != "random") {
             let cardName = args.cardName.join("+");
             _request((FUZZY_URL + cardName), function(err, res, body) {
+                console.log(body);
                 if(err || res.statusCode != 200) {
-                    msg.channel.send('Useful Error message');                
+                    msg.channel.send('Not Found.');                
                 } else {
                     var cardObj = JSON.parse(body);
                     msg.channel.send(mtgMessage(cardObj));
@@ -41,7 +42,7 @@ module.exports = class MtgSearch extends commando.Command {
         } else {
             _request(RANDOM_URL, function(err, res, body) {
                 if(err || res.statusCode != 200) {
-                    msg.channel.send('Useful Error message');                
+                    msg.channel.send('Not Found.');                
                 } else {
                     var cardObj = JSON.parse(body);
                     msg.channel.send(mtgMessage(cardObj));

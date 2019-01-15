@@ -42,7 +42,7 @@ module.exports = class MtgSearch extends commando.Command {
 
         _request(options, (err, res, body) => {
             if(err || res.statusCode != 200) {
-                msg.channel.send('Useful Error message');                
+                msg.channel.send('Not Found.');                
             } else {
                 msg.channel.send(mtgMessage(body.data[0]));
             }
