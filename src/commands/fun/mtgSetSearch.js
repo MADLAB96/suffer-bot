@@ -1,6 +1,8 @@
 'use strict';
 var commando = require("discord.js-commando");
 var _request = require('request');
+var mtgMessage = require('../../util/mtgCard');
+
 const SEARCH_URL = "https://api.scryfall.com/cards/collection";
 
 module.exports = class MtgSearch extends commando.Command {
@@ -29,14 +31,7 @@ module.exports = class MtgSearch extends commando.Command {
         });
     }
     async run(msg, args) {        
-        var postData = {
-            identifiers: [
-                {
-                    name: args.cardName,
-                    set: args.setId
-                }
-            ]            
-        }
+        var postData = { identifiers: [{ name: args.cardName, set: args.setId }] };
           
         var options = {
             method: 'post',
@@ -46,7 +41,11 @@ module.exports = class MtgSearch extends commando.Command {
         }
 
         _request(options, (err, res, body) => {
-            msg.channel.send(body.data[0].image_uris.normal);
-        })
+            if(err || res.statusCode != 200) {
+                msg.channel.send('Useful Error message');                
+            } else {
+                msg.channel.send(mtgMessage(body.data[0]));
+            }
+        });
     }
 }

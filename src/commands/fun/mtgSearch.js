@@ -1,6 +1,7 @@
 'use strict';
 var commando = require("discord.js-commando");
 var _request = require('request');
+var mtgMessage = require('../../util/mtgCard');
 
 const FUZZY_URL = "https://api.scryfall.com/cards/named?fuzzy=";
 const RANDOM_URL = "https://api.scryfall.com/cards/random";
@@ -31,20 +32,19 @@ module.exports = class MtgSearch extends commando.Command {
             let cardName = args.cardName.join("+");
             _request((FUZZY_URL + cardName), function(err, res, body) {
                 if(err || res.statusCode != 200) {
-                    // msg.channel.send(`${msg.author} breed: '${args.breed}' or subbreed: ${args.subBreed} not found. Sub-breed list found here:
-                    //                     https://dog.ceo/api/breed/${args.breed}/list`);
+                    msg.channel.send('Useful Error message');                
                 } else {
-                    var JSDOG = JSON.parse(body);
-                    msg.channel.send(JSDOG.image_uris.normal);
+                    var cardObj = JSON.parse(body);
+                    msg.channel.send(mtgMessage(cardObj));
                 }
             });
         } else {
             _request(RANDOM_URL, function(err, res, body) {
                 if(err || res.statusCode != 200) {
-                    msg.channel.send(`dog API === borked`);
+                    msg.channel.send('Useful Error message');                
                 } else {
-                    var JSDOG = JSON.parse(body);
-                    msg.channel.send(JSDOG.image_uris.normal);
+                    var cardObj = JSON.parse(body);
+                    msg.channel.send(mtgMessage(cardObj));
                 }
             });
         }
