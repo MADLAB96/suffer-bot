@@ -1,6 +1,7 @@
 'use strict';
 var commando = require("discord.js-commando");
 var _request = require('request');
+var logger = require('winston');
 
 var randomURL = 'https://dog.ceo/api/breeds/image/random';
 var subURL = 'https://dog.ceo/api/breed/';
@@ -30,7 +31,7 @@ module.exports = class Dog extends commando.Command {
         });
     }
     async run(msg, args) {
-        console.log(args);
+        logger.info(`!dog command: ${msg.author}: ${args.subBreed}+${args.breed}`);
         if(args.subBreed != "random") {
             var subBreedURL = subURL + args.breed + '/' + args.subBreed + '/images/random';
             _request(subBreedURL.toLowerCase(), function(err, res, body) {
