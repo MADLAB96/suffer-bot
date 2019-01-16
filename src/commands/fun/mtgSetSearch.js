@@ -2,10 +2,11 @@
 var commando = require("discord.js-commando");
 var _request = require('request');
 var mtgMessage = require('../../util/mtgCard');
+var logger = require('winston');
 
 const SEARCH_URL = "https://api.scryfall.com/cards/collection";
 
-module.exports = class MtgSearch extends commando.Command {
+module.exports = class MtgSetSearch extends commando.Command {
     constructor(client) {
         super(client, {
             name: "mtgset",
@@ -42,7 +43,8 @@ module.exports = class MtgSearch extends commando.Command {
 
         _request(options, (err, res, body) => {
             if(err || res.statusCode != 200) {
-                msg.channel.send('Not Found.');                
+                msg.channel.send('Not Found.');        
+                logger.error(`Did not find card: ${args.cardName} : ${args.setId}`);     
             } else {
                 msg.channel.send(mtgMessage(body.data[0]));
             }
