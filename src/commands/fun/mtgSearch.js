@@ -32,6 +32,7 @@ module.exports = class MtgSearch extends commando.Command {
             let cardName = args.cardName.join("+");
             logger.info(`Searching for: ${cardName}`);
             _request((FUZZY_URL + cardName), function(err, res, body) {
+                // console.log(body);
                 if(err || res.statusCode != 200) {
                     msg.channel.send('Not Found.');                
                     logger.error(`Did not find card: ${args.cardName}`);     
