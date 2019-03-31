@@ -11,8 +11,8 @@
   "license": "ISC",
   "dependencies": {
     "directory-loader": "^1.0.4",
-    "discord.js": "^11.4.2",
-    "discord.js-commando": "^0.10.0",
+    "discord.js": "github:discordjs/discord.js#master",
+    "discord.js-commando": "file:../Commando",
     "html2plaintext": "^2.1.2",
     "path": "^0.12.7",
     "request": "^2.88.0",
