@@ -61,11 +61,17 @@ module.exports = class PollCommand extends commando.Command {
     async run(msg, args) {
         console.log('asdf')
         let pollOpt = new PollOption("xD", msg.author.id);
-        let poll = new Poll(msg.author.id, msg.channel.id, "title", pollOpt);
+        let poll = new Poll(msg.author.id, msg.channel.id, makeString(args.args), pollOpt);
         store(msg, poll);
         //check if a poll already exists in this channelç
         //if not create one (add command)
         //vote
         //pick option
     }
+}
+
+function makeString(arr) { 
+    let str = "";
+    arr.forEach(i => { str += (i + ' '); });
+    return str;
 }
