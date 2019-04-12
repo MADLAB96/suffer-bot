@@ -6,30 +6,49 @@ var pollStorage = "./data/pollData.json";
 var fs = require('fs');
 
 function store(msg, poll) {
-    fs.readFile(pollStorage, 'utf8', (err, data) => {
-        if(err) {
-            console.log(err);
-        } else {
-            var obj = JSON.parse(data);
-            obj.polls.push(poll);
-            var json = JSON.stringify(obj);
-            fs.writeFile(pollStorage, json, 'utf8', (err) => {
-                if(err) console.log(err);
-            });
+    //called to store poll.
+    //if we get a poll of same channel, delete and re-add
+    let data = fs.readFileSync(pollStorage);
+    var obj = JSON.parse(data);
+    for(let i = 0; i < obj.polls.length; i++) {
+        if(obj.polls[i].channel === msg.channel.id) {
+            //remove from array
+            obj.polls.splice(i, 1);
+            i = obj.polls.length;
         }
+    }
+    if(poll !== undefined) {
+        obj.polls.push(poll);
+    } else {
+        console.log('null poll add attempt')
+    }
+    var str = JSON.stringify(obj);
+    fs.writeFile(pollStorage, str, 'utf8', (err) => {
+        if(err) console.log(err);
     });
 }
 
-function read(msg) {
-    fs.readFile(pollStorage, 'utf8', (err, data) => {
-        if(err) {
-            console.log(err);
-        } else {
-            var obj = JSON.parse(data);
-            obj.polls.push(poll);
-            var json = JSON.stringify(obj);
+function deletePoll(msg, poll) {
+    let data = fs.readFileSync(pollStorage);
+    var obj = JSON.parse(data);
+    for(let i = 0; i < obj.polls.length; i++) {
+        if(obj.polls[i].channel === msg.channel.id) {
+            //remove from array
+            obj.polls.splice(i, 1);
+            i = obj.polls.length;
         }
+    }
+    var str = JSON.stringify(obj);
+    fs.writeFile(pollStorage, str, 'utf8', (err) => {
+        if(err) console.log(err);
     });
+}
+
+
+function read() {
+    let data = fs.readFileSync(pollStorage);
+    var obj = JSON.parse(data);
+    return obj;
 }
 
 module.exports = class PollCommand extends commando.Command {
@@ -52,26 +71,74 @@ module.exports = class PollCommand extends commando.Command {
                     key: 'args',
                     prompt: 'text for poll choice',
                     type: 'string',
-                    // default: "",
-                    infinite: true, 
+                    default: "",
+                    require: false,
+                    // infinite: true, 
                 }
             ]
         });
     }
     async run(msg, args) {
-        console.log('asdf')
-        let pollOpt = new PollOption("xD", msg.author.id);
-        let poll = new Poll(msg.author.id, msg.channel.id, makeString(args.args), pollOpt);
-        store(msg, poll);
-        //check if a poll already exists in this channelç
-        //if not create one (add command)
-        //vote
-        //pick option
+        // let argsArgs = makeString(args.args); 
+        let argsArgs = args.args;
+
+        if(args.command === 'show') {
+            let poll = getPoll(msg, argsArgs);
+            poll.displayInfo(msg);
+        } else if(args.command === 'winner') {
+            let poll = getPoll(msg, argsArgs);
+            poll.calculateWinner(msg);
+        } else if(args.command === 'add') {
+            console.log('add poll')
+            let poll = getPoll(msg, argsArgs);
+            let pollOption = new PollOption(argsArgs, msg.author.id);
+            poll.addOption(pollOption, msg.author.id);
+            store(msg, poll);
+            poll.displayInfo(msg);
+        } else if(args.command === 'vote') {
+            console.log('vote poll')
+            let poll = getPoll(msg, argsArgs);
+            let pollOption = new PollOption(argsArgs, msg.author.id);
+            poll.vote(pollOption, msg.author.id);
+            store(msg, poll);
+            poll.displayInfo(msg);
+        } else if(args.command === 'create') {
+            console.log('create poll')
+            let poll = new Poll(msg.author.id, msg.channel.id, argsArgs, []);
+            store(msg, poll);
+            msg.channel.send(`Start voting on: ${argsArgs}`);
+        } else if(args.command === 'delete') {
+            console.log('delete poll')
+            let poll = getPoll(msg, argsArgs);
+
+            // should only be deletable by the poll's author
+            if(poll.author === msg.author.id) {
+                //delete it
+                deletePoll(msg, poll);
+            } else {
+                msg.channel.send('Only the author can delete the poll.');
+            }
+        } else {
+            msg.channel.send('Unknown argument.')
+        }
     }
 }
 
 function makeString(arr) { 
     let str = "";
     arr.forEach(i => { str += (i + ' '); });
-    return str;
+    return str.slice(0, str.length - 1);
+}
+
+function getPoll(msg, title) {
+    let data = read();
+    //check if a poll already exists in this channel
+    let poll;
+
+    data.polls.forEach(p => {
+        if((p.channel === msg.channel.id) && ((Date.now() - p.startTime) < 900000)) { //15 minutes
+            poll = new Poll(p.author, p.channel, p.title, p.options);
+        }
+    });
+    return poll;
 }
