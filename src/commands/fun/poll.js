@@ -57,6 +57,7 @@ module.exports = class PollCommand extends commando.Command {
             name: "poll",
             description: "simple polling",
             group: 'fun',
+            aliases: ["lunch"],
             memberName: "poll",
             examples: ["!poll <command create|pick|vote|print> <text>",
                        "!poll create Lunch Poll",
@@ -99,7 +100,7 @@ module.exports = class PollCommand extends commando.Command {
             console.log('vote poll')
             let poll = getPoll(msg, argsArgs);
             let pollOption = new PollOption(argsArgs, msg.author.id);
-            poll.vote(pollOption, msg.author.id);
+            poll.vote(msg, pollOption, msg.author.id);
             store(msg, poll);
             poll.displayInfo(msg);
         } else if(args.command === 'create') {
