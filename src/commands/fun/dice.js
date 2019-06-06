@@ -19,7 +19,11 @@ module.exports = class Dice extends commando.Command {
         });
     }
     async run(msg, args) {
-        var randRoll = Math.floor(Math.random() * args.number) + 1;
-        msg.channel.send(`${msg.author} rolled a d${args.number} and got ${randRoll}`);        
+        if(args.number >= 1) {
+            var randRoll = Math.floor(Math.random() * args.number) + 1;
+            msg.channel.send(`${msg.author} rolled a d${args.number} and got ${randRoll}`);
+        } else {
+            msg.channel.send(`That ain't no dice`);
+        }      
     }
 }
