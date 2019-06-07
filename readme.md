@@ -23,11 +23,6 @@ https://discordapp.com/oauth2/authorize?&client_id=YOUR_CLIENT_ID_HERE&scope=bot
 ### Todo
  - more commands
     - urban dictionary
-    - DarkNet Integration
-       - ID picture
-       - nightmare (probs not realistic time frame)
     - music (idk if people want this though)
     - lunch command
     - Pet Bomb
- - more uptime
-   - Setup RasPi to host it. 
