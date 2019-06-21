@@ -1,6 +1,7 @@
 ## Suffer-Bot
 
-barebones discord bot for personal use, will hopefully become something useful one day. *but not likely*
+Barebones discord bot for personal use, will hopefully become something useful one day. *but not likely* 
+Currently running on a raspberry pi at home, being used in a couple of servers. 
 
 * prerequisites: discord account
 * will have to get your own auth token from https://discordapp.com/developers/applications/
@@ -14,8 +15,6 @@ barebones discord bot for personal use, will hopefully become something useful o
     * just create a file called `auth.json` and add your token like this to the file: `{ "token": "YOUR_TOKEN_HERE" }`
 
 
-
-
 url to add your bot to the server *i kept forgetting where it was*
 
 https://discordapp.com/oauth2/authorize?&client_id=YOUR_CLIENT_ID_HERE&scope=bot&permissions=0
@@ -23,6 +22,5 @@ https://discordapp.com/oauth2/authorize?&client_id=YOUR_CLIENT_ID_HERE&scope=bot
 ### Todo
  - more commands
     - urban dictionary
-    - music (idk if people want this though)
     - lunch command
     - Pet Bomb
