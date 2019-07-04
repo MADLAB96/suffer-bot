@@ -1,6 +1,6 @@
 'use strict';
 var commando = require("discord.js-commando");
-var heros = require(process.cwd() + '/data/dotaheros.json').heros;
+var heroes = require(process.cwd() + '/data/dotaheros.json').heroes;
 
 module.exports = class DotaPicker extends commando.Command {
     constructor(client) {
@@ -20,16 +20,21 @@ module.exports = class DotaPicker extends commando.Command {
         });
     }
     async run(msg, args) {
+	// heroes = heroes.heroes;
         switch(args.gamemode) {
-            case 'allpick': 
-                msg.channel.send(`${msg.author} will play ${heros[Math.random() * heros.length].localized_name}`);
+            case 'allpick':
+		let i = Math.floor(Math.random() * heroes.length);
+		msg.channel.send(`${msg.author} will play ${heroes[i].localized_name}`);
+		break;
             case 'randomDraft':
-                msg.channel.send(`${msg.author} will chose from
-                            ${heros[Math.random() * heros.length].localized_name}
-                            ${heros[Math.random() * heros.length].localized_name}
-                            ${heros[Math.random() * heros.length].localized_name}`);
-            default:
+		let hero1 = heroes[Math.floor(Math.random() * heroes.length)].localized_name;
+		let hero2 = heroes[Math.floor(Math.random() * heroes.length)].localized_name;
+		let hero3 = heroes[Math.floor(Math.random() * heroes.length)].localized_name; 
+                msg.channel.send(`${msg.author} will chose from ${hero1}, ${hero2}, ${hero3}`);
+            	break;
+	    default:
                 msg.channel.send(`Invalid game mode, pick from: allpick (default), randomDraft (3 heros)`);
+		break;
         }
     }
 }

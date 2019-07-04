@@ -15,7 +15,7 @@ logger.level = 'debug';
 
 const client = new commando.Client({
     owner: '209463572395196417',
-    commandPrefix: "!"
+    commandPrefix: "computer"
 });
 
 client.on('ready', function (evt) {

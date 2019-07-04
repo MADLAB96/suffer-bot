@@ -1,0 +1,15 @@
+[Unit]
+Description=Discord Bot
+After=network.target
+
+[Service]
+ExecStart=/home/pi/repos/suffer-bot/bot.js
+Restart=always
+User=nobody
+Group=nogroup
+Environment=PATH=/usr/bin:/usr/local/bin
+Environment=NODE_ENV=production
+WorkingDirectory=~/repos/suffer-bot
+
+[Install]
+WantedBy=multi-user.target
