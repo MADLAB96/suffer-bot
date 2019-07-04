@@ -1,6 +1,6 @@
 'use strict';
 var commando = require("discord.js-commando");
-var heroes = require(process.cwd() + '/data/dotaheros.json').heroes;
+var heroes = require('../../../data/dotaheros.json').heroes;
 
 module.exports = class DotaPicker extends commando.Command {
     constructor(client) {
