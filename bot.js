@@ -1,17 +1,17 @@
 #!/usr/bin/env node
 'use strict';
 
-var logger = require('winston');
+//var logger = require('winston');
 var auth = require('./auth.json');
 var commando = require("discord.js-commando");
 var path = require('path');
 
 // Configure logger settings
-logger.remove(logger.transports.Console);
-logger.add(logger.transports.Console, {
-    colorize: true
-});
-logger.level = 'debug';
+//logger.remove(logger.transports.Console);
+//logger.add(logger.transports.Console, {
+//    colorize: true
+//});
+//logger.level = 'debug';
 
 const client = new commando.Client({
     owner: '209463572395196417',
@@ -23,8 +23,10 @@ client.on('ready', function (evt) {
     client.channels.forEach(channel => {
         list.push(channel.name)
     });
-    logger.info('Connected to: ' + list);
-    logger.info('Started.');
+//    logger.info('Connected to: ' + list);
+//    logger.info('Started.');
+    console.log('connected to:', list);
+    console.log('Started');
 });
 
 client.registry

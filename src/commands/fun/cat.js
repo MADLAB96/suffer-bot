@@ -1,7 +1,7 @@
 'use strict';
 var _request = require('request');
 var commando = require("discord.js-commando");
-var logger = require('winston');
+//var logger = require('winston');
 var auth = require('../../../auth.json');
 
 const MAX_PAGE_NUM = 2806;
@@ -52,7 +52,7 @@ module.exports = class Cat extends commando.Command {
                 }
     
                 _request(options, function(err, res, body) {
-                    logger.info(`!cat command: ${msg.author} ${args.breed}`);
+                    //logger.info(`!cat command: ${msg.author} ${args.breed}`);
                     if(err) {
                         msg.channel.send('mewed :3');
                     } else {

@@ -3,7 +3,7 @@ var _request = require('request');
 var commando = require("discord.js-commando");
 const {RichEmbed} = require('discord.js');
 const h2p = require("html2plaintext");
-var logger = require('winston');
+//var logger = require('winston');
 
 const baseURL = 'https://opentdb.com/api.php?amount=1';
 
@@ -62,7 +62,7 @@ module.exports = class Trivia extends commando.Command {
         const path = this.createPath(args.category, args.difficulty);
         _request(path, function(err, res, body) {
             try {
-                logger.info(`!trivia command: ${msg.author}: ${args.category}+${args.difficulty}`);
+                //logger.info(`!trivia command: ${msg.author}: ${args.category}+${args.difficulty}`);
                 let data = JSON.parse(body);
                 let choices = randomizeChoices(data.results[0].correct_answer, 
                     data.results[0].incorrect_answers);
@@ -103,7 +103,7 @@ module.exports = class Trivia extends commando.Command {
                     }
                 });
             } catch(err) {
-                logger.error(err);
+                //logger.error(err);
             }
         });
     }
