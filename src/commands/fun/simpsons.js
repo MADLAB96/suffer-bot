@@ -23,12 +23,18 @@ module.exports = class SimpsonsGifs extends commando.Command {
             ]});
     }
     async run(msg, args) {
+        console.log(genUrl(args.extraSearch));
+        
         _request(genUrl(args.extraSearch), function(err, res, body) {
             if(err) console.log(err);
             else {
                 let jsonBody = JSON.parse(body);
-                let randId = Math.floor(Math.random() * jsonBody.results.length);
-                msg.channel.send(jsonBody.results[randId].url);
+                if(jsonBody.results && jsonBody.results.length !== 0) {
+                    let randId = Math.floor(Math.random() * jsonBody.results.length);
+                    msg.channel.send(jsonBody.results[randId].url);
+                } else {
+                    msg.channel.send('IDK Your search sucks, try again');
+                }
             }
         });
     }
@@ -38,6 +44,7 @@ function genUrl(searchTerms) {
     if(searchTerms === '') {
         return `https://api.tenor.com/v1/random?q=simpsons&key=${auth.tenorToken}`
     } else {
-        return `https://api.tenor.com/v1/random?q=simpsons+${searchTerms}&key=${auth.tenorToken}`
+        let replace = searchTerms.split(' ').join('+');
+        return `https://api.tenor.com/v1/random?q=simpsons+${replace}&key=${auth.tenorToken}`
     }
 }
