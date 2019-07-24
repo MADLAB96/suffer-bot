@@ -2,7 +2,6 @@
 var commando = require("discord.js-commando");
 var _request = require('request');
 var mtgMessage = require('../../util/mtgCard');
-//var logger = require('winston');
 
 const FUZZY_URL = "https://api.scryfall.com/cards/named?fuzzy=";
 const RANDOM_URL = "https://api.scryfall.com/cards/random";

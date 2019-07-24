@@ -24,3 +24,5 @@ https://discordapp.com/oauth2/authorize?&client_id=YOUR_CLIENT_ID_HERE&scope=bot
     - urban dictionary
     - lunch command
     - Pet Bomb
+
+### TODO API tokens documentation
