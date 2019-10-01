@@ -1,11 +1,11 @@
 {
-  "name": "discordbot",
+  "name": "suffer-bot",
   "version": "1.0.0",
-  "description": "simple discord bot",
+  "description": "simple bot",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon --watch src bot.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "rimraf dist/ && babel ./ --out-dir dist/ --ignore ./node_modules,./.babelrc,./package.json,./npm-debug.log --copy-files",
+    "start": "npm run build && node dist/bot.js"
   },
   "author": "",
   "license": "ISC",
