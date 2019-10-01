@@ -2,12 +2,46 @@
 'use strict';
 
 var auth = require('./auth.json');
-var commando = require("discord.js-commando");
+var commando = require('discord.js-commando');
 var path = require('path');
+var tmi  = require('tmi.js');
 
 const client = new commando.Client({
     owner: '209463572395196417',
-    commandPrefix: "!"
+    commandPrefix: '!'
+});
+
+const twitchOpts = {
+    identity: {
+        username: 'suffer-bot',
+        password: auth.twitch
+    },
+
+    channels: [
+        'Madlab96'
+    ]
+}
+
+const twitchClient = new tmi.client(twitchOpts);
+
+twitchClient.connect();
+
+twitchClient.on('message', (target, context, msg, self) => {
+    console.log('new msg:', msg);
+    if(msg.trim().slice(0, 1) === '!') {
+        console.log('prefix !::');
+    }
+    if(msg.includes('society') || msg.includes('joker') || msg.includes('we')) {
+        twitchClient.say(target, 'gamer word');
+    }
+    if(msg.includes('nagger')) {
+        twitchClient.say(target, 'ayy');
+    }
+});
+
+
+twitchClient.on('connected', (addr, port) => {
+    console.log(`* Connected to ${addr}:${port}`);
 });
 
 client.on('ready', function (evt) {
