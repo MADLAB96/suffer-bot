@@ -42,7 +42,6 @@ module.exports = class ClientSystem {
     }
 
     initTwitch() {
-
         // TODO: Import this from config file.
         const twitchOpts = {
             identity: {
