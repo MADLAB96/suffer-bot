@@ -24,5 +24,15 @@ https://discordapp.com/oauth2/authorize?&client_id=YOUR_CLIENT_ID_HERE&scope=bot
     - urban dictionary
     - lunch command
     - Pet Bomb
+ - Twitch integration (bot re-write)
+    - To make commands generic (Twitch, discord, etc.)
+    - Remove Commando, replace with generic class system so commands can be for both Twitch and Discord (or any other).
+    - Modular commands (Discord(A,B,C), Twitch(A, C, D)) given commands A, B, C, D
+    - distinguish Commands and Responses
+      - My main critism of Commando. Simple text responses are commands.
+ - Database integration. 
+    - basic metrics
+    - add new responses
+ - Re Add logging
 
 ### TODO API tokens documentation

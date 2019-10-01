@@ -2,28 +2,9 @@
 'use strict';
 
 var auth = require('./auth.json');
-var commando = require("discord.js-commando");
-var path = require('path');
+var ClientSystem = require('./src/ClientSystem');
 
-const client = new commando.Client({
-    owner: '209463572395196417',
-    commandPrefix: "!"
-});
+var cs = new ClientSystem(auth);
 
-client.on('ready', function (evt) {
-    var list = [];
-    client.channels.forEach(channel => {
-        list.push(channel.name)
-    });
-    console.log('connected to:', list);
-    console.log('Started');
-});
-
-client.registry
-        .registerGroup('fun', 'Fun')
-        .registerGroup('response', 'Response')
-        .registerDefaults()
-        .registerCommandsIn(path.join(__dirname, './src/commands'));
-
-// authentication
-client.login(auth.token);
+cs.initTwitch();
+cs.initDiscord();
