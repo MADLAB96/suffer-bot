@@ -27,5 +27,10 @@ https://discordapp.com/oauth2/authorize?&client_id=YOUR_CLIENT_ID_HERE&scope=bot
  - Twitch integration 
     - Possible bot re-write
         - To make commands generic (Twitch, discord, etc.)
-
+    - Remove Commando, replace with generic class system so commands can be for both Twitch and Discord (or any other).
+    - 
+ - Database integration. 
+    - basic metrics
+    - add new response
+ - Re Add logging
 ### TODO API tokens documentation
