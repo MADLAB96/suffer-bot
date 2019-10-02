@@ -15,5 +15,10 @@ var cs = new ClientSystem(auth);
 
 // init twitch client
 cs.initTwitch();
-// init discord client
+// init discord client (commando) **temporary**
+cs.initCommando();
+// init discord.js client 
 cs.initDiscord();
+
+// Load commands
+
