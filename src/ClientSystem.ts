@@ -2,8 +2,15 @@ var commando = require('discord.js-commando');
 var path = require('path');
 var tmi  = require('tmi.js');
 
-module.exports = class ClientSystem {
-    constructor(auth) {
+export default class ClientSystem {
+    public discordClient: any;
+    public twitchClient: any;
+    public commands: any;
+    public defaultResponses: any;
+    public storedRessponses: any;
+    public auth: any;
+
+    constructor(auth: any) {
         this.discordClient = null;
         this.twitchClient = null;   
         this.commands = [];         
@@ -14,15 +21,16 @@ module.exports = class ClientSystem {
         else this.auth = {};
     }
 
-    initDiscord() {
+    initDiscord(): ClientSystem {
         const client = new commando.Client({
             owner: '209463572395196417',
             commandPrefix: '!'
         });
         
-        client.on('ready', function (evt) {
-            var list = [];
-            client.channels.forEach(channel => {
+        client.on('ready', function (evt: any) {
+            var list: any[] = [];
+            //TODO: Log the Guild name instead (or in addition)
+            client.channels.forEach((channel: any) => {
                 list.push(channel.name)
             });
             console.log('connected to:', list);
@@ -41,7 +49,7 @@ module.exports = class ClientSystem {
         return this;
     }
 
-    initTwitch() {
+    initTwitch(): ClientSystem {
         // TODO: Import this from config file.
         const twitchOpts = {
             identity: {
@@ -58,7 +66,7 @@ module.exports = class ClientSystem {
         
         twitchClient.connect();
         
-        twitchClient.on('message', (target, context, msg, self) => {
+        twitchClient.on('message', (target: any, context: any, msg: any, self: any) => {
             console.log('new msg:', msg);
             if(msg.trim().slice(0, 1) === '!') {
                 console.log('prefix !::');
@@ -72,7 +80,7 @@ module.exports = class ClientSystem {
         });
         
         
-        twitchClient.on('connected', (addr, port) => {
+        twitchClient.on('connected', (addr: any, port: any) => {
             console.log(`* Connected to ${addr}:${port}`);
         });        
 
