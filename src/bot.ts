@@ -2,10 +2,8 @@
 'use strict';
 
 /*
-
     TODO:  
     - config logic from the auth.json file. EG) if twitch credentials present, call initTwitch.
-
 */
 
 var auth = require('../auth.json');
