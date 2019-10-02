@@ -1,3 +1,5 @@
+import { isObject } from 'util';
+
 /*
     what should this class do?
         - This should be the base class for all Commands and should have a run function
@@ -5,7 +7,7 @@
             - They both do the same thing but a command has more to it.
         */
 
-class Response {
+export class Response {
     public name: string;
     public msg: string;
     public aliases: string[];
@@ -25,8 +27,8 @@ class Response {
     }
 }
 
-export default class Command extends Response {
-    constructor(name: any) {
+export class Command extends Response {
+    constructor(name: any, args: any) {
         super(name);
     }
 
@@ -34,6 +36,30 @@ export default class Command extends Response {
 
     }
 }
+
+export class MessageResponse extends Response {
+    constructor(name: any, args: any) {
+        super(name);
+        this.verifyArgs(args);
+    }
+
+    verifyArgs(args: any) {
+        if(!isObject(args)) throw new Error('Error validating MessageResponse arguments');
+    }
+}
+
+// TODO: do this for error checking and consistency
+// class ResponseArguments {
+
+// }
+
+// class CommandArguments extends ResponseArguments {
+
+// }
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////// REFERENCES /////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
 
 // DISCORDJS.COMMANDO's Command class. (for reference) 
 // export class Command {
