@@ -28,12 +28,37 @@ export class Response {
 }
 
 export class Command extends Response {
+    public identifier: string;
+    public desc: string;
+    public aliases: string[];
+    public examples: string[];
+    public args: any[];
+
     constructor(name: any, args: any) {
         super(name);
+        this.identifier = '';
+        this.desc = '';
+        this.aliases = [];
+        this.examples = [];
+        this.args = [];
+        this.verifyArgs(args);
     }
 
-    run(msg: any, args: any)  {
+    verifyArgs(args: any)  {
         if(!isObject(args)) throw new Error('idk');
+        else {
+            console.log('Assigning values from args!!')
+            this.identifier = args.identifier;
+            this.desc = args.description;
+            this.aliases = args.aliases;
+            this.examples = args.examples;
+            this.args = args.args;
+            this.run = args.run;
+        }
+    }
+
+    async run(msg: any, args: any)  {
+        throw new Error(`Command ${this.name} does not have a run function`);
     }
 }
 

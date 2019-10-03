@@ -42,11 +42,9 @@ export default class ClientSystem {
 
     loadDefaultCommands() {
         let diceCommand = new Command('Dice', { 
-            name: "dice",
+            identifier: "dice",
             description: "rolls a dice with <n> sides (default is 20)",
-            group: 'fun',
             aliases: ["roll", "dice", "d20"],
-            memberName: "dice",
             examples: ["!dice", "!dice <num>"],
             args: [{
                 key: 'number',
@@ -57,9 +55,9 @@ export default class ClientSystem {
             run: async (msg: any, args: any) => {
                 if(args.number > 1) {
                     var randRoll = Math.floor(Math.random() * args.number) + 1;
-                    msg.channel.send(`${msg.author} rolled a d${args.number} and got ${randRoll}`);
+                    return (`${msg.author} rolled a d${args.number} and got ${randRoll}`);
                 } else {
-                    msg.channel.send(`This bot is not for testing your theoretical dice.`);
+                    return (`This bot is not for testing your theoretical dice.`);
                 }
             }
         });
@@ -67,6 +65,10 @@ export default class ClientSystem {
         this.defaultCommands.push(diceCommand);
 
         console.log(`loaded ${this.defaultCommands.length} default commands`);
+    }
+
+    async loadStoredResponses() {
+        // TODO: Make this
     }
     // TODO: remove this as it becomes obsolete
     initCommando(): ClientSystem {
@@ -143,12 +145,23 @@ export default class ClientSystem {
         return this;
     }
 
-    handleDiscordMessage(msg: any, content: string) {
+    async handleDiscordMessage(msg: any, content: string) {
         // already know that this is a Response, skip prefix check
-        this.defaultResponses.forEach((resp) => {
-            console.log(resp)
+        this.defaultResponses.forEach(async (resp) => {
+            console.log('resp', resp)
             if(resp.identifier === content) {
                 msg.reply(resp.msg);
+            }
+        });
+        this.defaultCommands.forEach(async (command) => {
+            let contentArr = content.split(" ");
+            console.log('command', command)
+            console.log('content', contentArr)
+            if(command.identifier === contentArr[0]) {
+
+                let val = await command.run(msg, {number:  parseInt(contentArr[1]) });
+                console.log(val)
+                msg.reply(val);
             }
         });
     }
