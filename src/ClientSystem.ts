@@ -102,6 +102,27 @@ export default class ClientSystem {
         return this;
     }
 
+    async handleTwitchMessage(target: string, context: any, msg: string) {
+        // already know that this is a Response, skip prefix check
+        this.defaultResponses.forEach(async (resp) => {
+            console.log('resp', resp)
+            if(resp.identifier === msg) {
+                this.twitchClient.say(target, `@${context.username} ${resp.msg}`);
+            }
+        });
+        this.defaultCommands.forEach(async (command) => {
+            let contentArr = msg.split(" ");
+            console.log('command', command)
+            console.log('content', contentArr)
+            if(command.identifier === contentArr[0]) {
+
+                let val = await command.run({author: context.username}, {number:  parseInt(contentArr[1]) });
+                console.log('@' + val)
+                this.twitchClient.say(target, '@' + val);
+            }
+        });
+    }
+
     initTwitch(): ClientSystem {
         // TODO: Import this from config file.
         const twitchOpts = {
@@ -111,7 +132,8 @@ export default class ClientSystem {
             },
 
             channels: [
-                'Madlab96'
+                'Madlab96',
+                'sufferingbot'
             ]
         }
 
@@ -120,11 +142,13 @@ export default class ClientSystem {
         twitchClient.connect();
 
         twitchClient.on('message', (target: any, context: any, msg: any, self: any) => {
+            console.log("TWITCH MESSAGE", {target, context, msg, self})
             // TODO Make the prefix a regex to allow for mulitple prefix  (!, @, computer, etc.) 
             if (msg.trim()[0] === '!') {
                 console.log('prefix ! found. Command:', msg.trim().slice(1));
 
                 // Successfully recieved a message. Query the responces and commands to see if valid.
+                this.handleTwitchMessage(target, context, msg.trim().slice(1));
             } else {
                 // ignore message, not relevent
             }
@@ -181,8 +205,10 @@ export default class ClientSystem {
             if (msg.content === 'ping') {
                 msg.reply('Pong!');
             }
-            if (msg.content.trim()[0] === '!')
+            if (msg.content.trim()[0] === '!'){
                 this.handleDiscordMessage(msg, msg.content.slice(1)); // TODO: replace slice() with a prefix remover function
+                console.log(msg);
+            }
         });
 
         client.login(this.auth.token);
