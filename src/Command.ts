@@ -5,7 +5,7 @@ import { isObject } from 'util';
         - This should be the base class for all Commands and should have a run function
         - Each Command is a respnose, but each response isnt a command.
             - They both do the same thing but a command has more to it.
-        */
+*/
 
 export class Response {
     public name: string;
@@ -32,23 +32,30 @@ export class Command extends Response {
         super(name);
     }
 
-    run() {
-
+    run(msg: any, args: any)  {
+        if(!isObject(args)) throw new Error('idk');
     }
 }
 
 export class MessageResponse extends Response {
+    public identifier: string;
+
     constructor(name: any, args: any) {
         super(name);
+        this.identifier = '';
         this.verifyArgs(args);
     }
 
     verifyArgs(args: any) {
         if(!isObject(args)) throw new Error('Error validating MessageResponse arguments');
+        else {
+            this.identifier = args.identifier;
+            this.msg = args.response;
+        }
     }
 }
 
-// TODO: do this for error checking and consistency
+// TODO: do this for error checking and consistency (once the args are fleshed out)
 // class ResponseArguments {
 
 // }

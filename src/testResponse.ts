@@ -18,5 +18,6 @@ let diceCommand = new Command('Dice', {
         prompt: 'ROll yo dice',
         type: 'integer',
         default: '20'
-    }]
+    }],
+    // run: FUNCTION
 })

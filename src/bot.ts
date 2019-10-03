@@ -7,7 +7,6 @@
 */
 
 var auth = require('../auth.json');
-
 import ClientSystem from './ClientSystem';
 
 // init the client system
@@ -16,9 +15,7 @@ var cs = new ClientSystem(auth);
 // init twitch client
 cs.initTwitch();
 // init discord client (commando) **temporary**
-cs.initCommando();
+// cs.initCommando();
 // init discord.js client 
 cs.initDiscord();
-
-// Load commands
 

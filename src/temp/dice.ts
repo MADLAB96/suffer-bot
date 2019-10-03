@@ -18,7 +18,7 @@ module.exports = class Dice extends Command {
             }]
         });
     }
-    async run(msg, args) {
+    async run(msg: any, args: any): Promise<void> {
         if(args.number > 1) {
             var randRoll = Math.floor(Math.random() * args.number) + 1;
             msg.channel.send(`${msg.author} rolled a d${args.number} and got ${randRoll}`);
