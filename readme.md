@@ -19,22 +19,4 @@ url to add your bot to the server *i kept forgetting where it was*
 
 https://discordapp.com/oauth2/authorize?&client_id=YOUR_CLIENT_ID_HERE&scope=bot&permissions=0
 
-### Todo
- - more commands
-    - [ ] urban dictionary
-    - [ ] lunch command
-    - [ ] Pet Bomb
-
- - Twitch integration (bot re-write)
-    - [ x ] To make commands generic (Twitch, discord, etc.)
-    - [ ] Remove Commando, replace with generic class system so commands can be for both Twitch and Discord (or any other).
-    - [ ] Modular commands (Discord(A,B,C), Twitch(A, C, D)) given commands A, B, C, D
-    - [ ] distinguish Commands and Responses      - My main critism of Commando. Simple text responses are commands.
- - Database integration. (mongo lite?? if exists otherwise do sqlite idc)
-    - [ ] basic metrics 
-    - [ ] "API" using commands to add/remove/update stored responces
-      - Could start this before the DB is up by pointing to local storage
-
- [ ] Re Add logging
-
-### TODO API tokens documentation
+### TODO: API tokens documentation
