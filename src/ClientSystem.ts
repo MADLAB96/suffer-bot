@@ -68,7 +68,7 @@ export default class ClientSystem {
     }
 
     async loadStoredResponses() {
-        // TODO: Make this
+        // TODO: Make this once DB is up and working
     }
     // TODO: remove this as it becomes obsolete
     initCommando(): ClientSystem {
@@ -102,119 +102,109 @@ export default class ClientSystem {
         return this;
     }
 
-    async handleTwitchMessage(target: string, context: any, msg: string) {
-        // already know that this is a Response, skip prefix check
-        this.defaultResponses.forEach(async (resp) => {
-            console.log('resp', resp)
-            if(resp.identifier === msg) {
-                this.twitchClient.say(target, `@${context.username} ${resp.msg}`);
-            }
-        });
-        this.defaultCommands.forEach(async (command) => {
-            let contentArr = msg.split(" ");
-            console.log('command', command)
-            console.log('content', contentArr)
-            if(command.identifier === contentArr[0]) {
+    // async handleTwitchMessage(target: string, context: any, msg: string) {
+    //     // already know that this is a Response, skip prefix check
+    //     this.defaultResponses.forEach(async (resp) => {
+    //         console.log('resp', resp)
+    //         if(resp.identifier === msg) {
+    //             this.twitchClient.say(target, `@${context.username} ${resp.msg}`);
+    //         }
+    //     });
+    //     this.defaultCommands.forEach(async (command) => {
+    //         let contentArr = msg.split(" ");
+    //         console.log('command', command)
+    //         console.log('content', contentArr)
+    //         if(command.identifier === contentArr[0]) {
 
-                let val = await command.run({author: context.username}, {number:  parseInt(contentArr[1]) });
-                console.log('@' + val)
-                this.twitchClient.say(target, '@' + val);
-            }
-        });
-    }
+    //             let val = await command.run({author: context.username}, {number:  parseInt(contentArr[1]) });
+    //             console.log('@' + val)
+    //             this.twitchClient.say(target, '@' + val);
+    //         }
+    //     });
+    // }
 
-    initTwitch(): ClientSystem {
-        // TODO: Import this from config file.
-        const twitchOpts = {
-            identity: {
-                username: 'sufferingbot',
-                password: this.auth.twitch
-            },
+    // initTwitch(): ClientSystem {
+    //     // TODO: Import this from config file.
+    //     const twitchOpts = {
+    //         identity: {
+    //             username: 'sufferingbot',
+    //             password: this.auth.twitch
+    //         },
 
-            channels: [
-                'Madlab96',
-                'sufferingbot'
-            ]
-        }
+    //         channels: [
+    //             'Madlab96',
+    //             'sufferingbot'
+    //         ]
+    //     }
 
-        const twitchClient = new tmi.client(twitchOpts);
+    //     const twitchClient = new tmi.client(twitchOpts);
 
-        twitchClient.connect();
+    //     twitchClient.connect();
 
-        twitchClient.on('message', (target: any, context: any, msg: any, self: any) => {
-            console.log("TWITCH MESSAGE", {target, context, msg, self})
-            // TODO Make the prefix a regex to allow for mulitple prefix  (!, @, computer, etc.) 
-            if (msg.trim()[0] === '!') {
-                console.log('prefix ! found. Command:', msg.trim().slice(1));
+    //     twitchClient.on('message', (target: any, context: any, msg: any, self: any) => {
+    //         console.log("TWITCH MESSAGE", {target, context, msg, self})
+    //         // TODO Make the prefix a regex to allow for mulitple prefix  (!, @, computer, etc.) 
+    //         if (msg.trim()[0] === '!') {
+    //             console.log('prefix ! found. Command:', msg.trim().slice(1));
 
-                // Successfully recieved a message. Query the responces and commands to see if valid.
-                this.handleTwitchMessage(target, context, msg.trim().slice(1));
-            } else {
-                // ignore message, not relevent
-            }
-            // if(msg.includes('society') || msg.includes('joker') || msg.includes('we')) {
-            //     twitchClient.say(target, 'gamer word');
-            // }
-            // if(msg.includes('nagger')) {
-            //     twitchClient.say(target, 'ayy');
-            // }
-        });
+    //             // Successfully recieved a message. Query the responces and commands to see if valid.
+    //             this.handleTwitchMessage(target, context, msg.trim().slice(1));
+    //         } else {
+    //             // ignore message, not relevent
+    //         }
+    //     });
 
-        twitchClient.on('connected', (addr: any, port: any) => {
-            console.log(`* Connected to ${addr}:${port}`);
-        });
+    //     twitchClient.on('connected', (addr: any, port: any) => {
+    //         console.log(`* Connected to ${addr}:${port}`);
+    //     });
 
-        this.twitchClient = twitchClient;
+    //     this.twitchClient = twitchClient;
 
-        return this;
-    }
+    //     return this;
+    // }
 
-    async handleDiscordMessage(msg: any, content: string) {
-        // already know that this is a Response, skip prefix check
-        this.defaultResponses.forEach(async (resp) => {
-            console.log('resp', resp)
-            if(resp.identifier === content) {
-                msg.reply(resp.msg);
-            }
-        });
-        this.defaultCommands.forEach(async (command) => {
-            let contentArr = content.split(" ");
-            console.log('command', command)
-            console.log('content', contentArr)
-            if(command.identifier === contentArr[0]) {
+    // async handleDiscordMessage(msg: any, content: string) {
+    //     // already know that this is a Response, skip prefix check
+    //     this.defaultResponses.forEach(async (resp) => {
+    //         console.log('resp', resp)
+    //         if(resp.identifier === content) {
+    //             msg.reply(resp.msg);
+    //         }
+    //     });
+    //     this.defaultCommands.forEach(async (command) => {
+    //         let contentArr = content.split(" ");
+    //         console.log('command', command)
+    //         console.log('content', contentArr)
+    //         if(command.identifier === contentArr[0]) {
 
-                let val = await command.run(msg, {number:  parseInt(contentArr[1]) });
-                console.log(val)
-                msg.reply(val);
-            }
-        });
-    }
+    //             let val = await command.run(msg, {number:  parseInt(contentArr[1]) });
+    //             console.log(val)
+    //             msg.reply(val);
+    //         }
+    //     });
+    // }
 
-    initDiscord(): ClientSystem {
-        const client = new Discord.Client();
+    // initDiscord(): ClientSystem {
+    //     const client = new Discord.Client();
 
-        client.on('connected', () => {
-            console.log(`Logged in as ${client.user.tag}!`);
-        });
+    //     client.on('ready', () => {
+    //         console.log(`DISCORD::Logged in as ${client.user.tag}!`);
+    //     });
 
-        client.on('ready', () => {
-            console.log(`Logged in as ${client.user.tag}!`);
-        });
+    //     client.on('message', (msg: any) => {
+    //         if (msg.content === 'ping') {
+    //             msg.reply('Pong!');
+    //         }
+    //         if (msg.content.trim()[0] === '!'){
+    //             this.handleDiscordMessage(msg, msg.content.slice(1)); // TODO: replace slice() with a prefix remover function
+    //             console.log(msg);
+    //         }
+    //     });
 
-        client.on('message', (msg: any) => {
-            if (msg.content === 'ping') {
-                msg.reply('Pong!');
-            }
-            if (msg.content.trim()[0] === '!'){
-                this.handleDiscordMessage(msg, msg.content.slice(1)); // TODO: replace slice() with a prefix remover function
-                console.log(msg);
-            }
-        });
+    //     client.login(this.auth.token);
 
-        client.login(this.auth.token);
-
-        this.discordClient = client;
+    //     this.discordClient = client;
         
-        return this;
-    }
+    //     return this;
+    // }
 }

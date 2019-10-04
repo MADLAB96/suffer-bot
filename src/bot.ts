@@ -8,14 +8,11 @@
 
 var auth = require('../auth.json');
 import ClientSystem from './ClientSystem';
-
+import TwitchClient from './TwitchClient';
+import DiscordClient from './DiscordClient';
 // init the client system
-var cs = new ClientSystem(auth);
+// var cs = new ClientSystem(auth);
 
-// init twitch client
-cs.initTwitch();
-// init discord client (commando) **temporary**
-// cs.initCommando();
-// init discord.js client 
-cs.initDiscord();
+let tc = new TwitchClient();
 
+let dc = new DiscordClient();

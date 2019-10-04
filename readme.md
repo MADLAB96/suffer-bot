@@ -30,9 +30,10 @@ https://discordapp.com/oauth2/authorize?&client_id=YOUR_CLIENT_ID_HERE&scope=bot
     - Modular commands (Discord(A,B,C), Twitch(A, C, D)) given commands A, B, C, D
     - distinguish Commands and Responses
       - My main critism of Commando. Simple text responses are commands.
- - Database integration. 
-    - basic metrics
-    - add new responses
+ - Database integration. (mongo lite?? if exists otherwise do sqlite idc)
+    - basic metrics 
+    - "API" using commands to add/remove/update stored responces
+      - Could start this before the DB is up by pointing to local storage
  - Re Add logging
 
 ### TODO API tokens documentation
