@@ -3,6 +3,7 @@ var tmi = require('tmi.js');
 
 import { MessageResponse, Command } from './Command';
 import { Client, ClientType } from './Client';
+import { MessageResponseList } from './commands/responses';
 
 export default class TwitchClient extends Client {
     constructor() {
@@ -59,7 +60,7 @@ export default class TwitchClient extends Client {
         // already know that this is a Response, skip prefix check
         this.defaultResponses.forEach(async (resp) => {
             console.log('resp', resp)
-            if(resp.identifier === msg) {
+            if(resp.id === msg) {
                 this.clientObj.say(target, `@${context.username} ${resp.msg}`);
             }
         });
@@ -67,7 +68,7 @@ export default class TwitchClient extends Client {
             let contentArr = msg.split(" ");
             console.log('command', command)
             console.log('content', contentArr)
-            if(command.identifier === contentArr[0]) {
+            if(command.id === contentArr[0]) {
 
                 let val = await command.run({author: context.username}, {number:  parseInt(contentArr[1]) });
                 console.log('@' + val)
@@ -77,12 +78,7 @@ export default class TwitchClient extends Client {
     }
 
     private loadDefaultResponses() {
-        let sourceResponse = new MessageResponse('Source',  { 
-            identifier: "source",
-            response: 'https://github.com/MADLAB96/suffer-bot'
-        });
-
-        this.defaultResponses.push(sourceResponse);
+        this.defaultResponses = MessageResponseList;
 
         console.log(`loaded ${this.defaultResponses.length} default responses`);
     }

@@ -3,6 +3,7 @@ var Discord = require('discord.js');
 
 import { MessageResponse, Command } from './Command';
 import { Client, ClientType } from './Client';
+import { MessageResponseList } from './commands/responses';
 
 export default class DiscordClient extends Client {
     constructor() {
@@ -40,7 +41,7 @@ export default class DiscordClient extends Client {
         // already know that this is a Response, skip prefix check
         this.defaultResponses.forEach(async (resp) => {
             console.log('resp', resp)
-            if(resp.identifier === content) {
+            if(resp.id === content) {
                 msg.reply(resp.msg);
             }
         });
@@ -48,7 +49,7 @@ export default class DiscordClient extends Client {
             let contentArr = content.split(" ");
             console.log('command', command)
             console.log('content', contentArr)
-            if(command.identifier === contentArr[0]) {
+            if(command.id === contentArr[0]) {
 
                 let val = await command.run(msg, {number:  parseInt(contentArr[1]) });
                 console.log(val)
@@ -58,12 +59,7 @@ export default class DiscordClient extends Client {
     }
 
     private loadDefaultResponses() {
-        let sourceResponse = new MessageResponse('Source',  { 
-            identifier: "source",
-            response: 'https://github.com/MADLAB96/suffer-bot'
-        });
-
-        this.defaultResponses.push(sourceResponse);
+        this.defaultResponses = MessageResponseList;
 
         console.log(`loaded ${this.defaultResponses.length} default responses`);
     }

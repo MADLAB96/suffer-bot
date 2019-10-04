@@ -28,7 +28,7 @@ export class Response {
 }
 
 export class Command extends Response {
-    public identifier: string;
+    public id: string;
     public desc: string;
     public aliases: string[];
     public examples: string[];
@@ -36,7 +36,7 @@ export class Command extends Response {
 
     constructor(name: any, args: any) {
         super(name);
-        this.identifier = '';
+        this.id = '';
         this.desc = '';
         this.aliases = [];
         this.examples = [];
@@ -48,7 +48,7 @@ export class Command extends Response {
         if(!isObject(args)) throw new Error('idk');
         else {
             console.log('Assigning values from args!!')
-            this.identifier = args.identifier;
+            this.id = args.id;
             this.desc = args.description;
             this.aliases = args.aliases;
             this.examples = args.examples;
@@ -63,19 +63,19 @@ export class Command extends Response {
 }
 
 export class MessageResponse extends Response {
-    public identifier: string;
+    public id: string;
 
     constructor(name: any, args: any) {
         super(name);
-        this.identifier = '';
+        this.id = '';
         this.verifyArgs(args);
     }
 
     verifyArgs(args: any) {
         if(!isObject(args)) throw new Error('Error validating MessageResponse arguments');
         else {
-            this.identifier = args.identifier;
-            this.msg = args.response;
+            this.id = args.id;
+            this.msg = args.res;
         }
     }
 }
