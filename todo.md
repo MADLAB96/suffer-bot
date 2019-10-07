@@ -16,3 +16,4 @@
       - Could start this before the DB is up by pointing to local storage
 
  - [ ] Re Add logging
+ - [ ] Cleanup TODO tags in code.

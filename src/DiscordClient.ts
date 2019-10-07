@@ -23,7 +23,6 @@ export default class DiscordClient extends Client {
         client.on('message', (msg: any) => {
             if (msg.content.trim()[0] === '!'){
                 this.handleDiscordMessage(msg, msg.content.slice(1)); // TODO: replace slice() with a prefix remover function
-                console.log(msg);
             }
         });
 
@@ -39,20 +38,18 @@ export default class DiscordClient extends Client {
 
     private async handleDiscordMessage(msg: any, content: string) {
         // already know that this is a Response, skip prefix check
+        console.log('Incoming Discord message!')
         this.defaultResponses.forEach(async (resp) => {
-            console.log('resp', resp)
             if(resp.id === content) {
-                msg.reply(resp.msg);
+                msg.reply(resp.res);
             }
         });
         this.defaultCommands.forEach(async (command) => {
             let contentArr = content.split(" ");
-            console.log('command', command)
-            console.log('content', contentArr)
+            console.log('content ::', contentArr);
+            console.log('contentID ::', command.id);
             if(command.id === contentArr[0]) {
-
-                let val = await command.run(msg, {number:  parseInt(contentArr[1]) });
-                console.log(val)
+                let val = await command.run(msg, command.call(contentArr[1]));
                 msg.reply(val);
             }
         });
@@ -66,13 +63,12 @@ export default class DiscordClient extends Client {
 
     private loadDefaultCommands() {
         let diceCommand = new Command('Dice', { 
-            identifier: "dice",
+            id: "dice",
             description: "rolls a dice with <n> sides (default is 20)",
             aliases: ["roll", "dice", "d20"],
             examples: ["!dice", "!dice <num>"],
             args: [{
                 key: 'number',
-                prompt: 'ROll yo dice',
                 type: 'integer',
                 default: '20'
             }],
@@ -86,6 +82,7 @@ export default class DiscordClient extends Client {
             }
         });
 
+        console.log(diceCommand)
         this.defaultCommands.push(diceCommand);
 
         console.log(`loaded ${this.defaultCommands.length} default commands`);

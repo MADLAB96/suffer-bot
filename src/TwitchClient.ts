@@ -61,7 +61,7 @@ export default class TwitchClient extends Client {
         this.defaultResponses.forEach(async (resp) => {
             console.log('resp', resp)
             if(resp.id === msg) {
-                this.clientObj.say(target, `@${context.username} ${resp.msg}`);
+                this.clientObj.say(target, `@${context.username} ${resp.res}`);
             }
         });
         this.defaultCommands.forEach(async (command) => {
@@ -85,13 +85,12 @@ export default class TwitchClient extends Client {
 
     private loadDefaultCommands() {
         let diceCommand = new Command('Dice', { 
-            identifier: "dice",
+            id: "dice",
             description: "rolls a dice with <n> sides (default is 20)",
             aliases: ["roll", "dice", "d20"],
             examples: ["!dice", "!dice <num>"],
             args: [{
                 key: 'number',
-                prompt: 'ROll yo dice',
                 type: 'integer',
                 default: '20'
             }],

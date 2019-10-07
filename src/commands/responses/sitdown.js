@@ -1,7 +1,7 @@
 'use strict';
 var _request = require('request');
 var commando = require("discord.js-commando");
-var {Attachment} = require('discord.js');
+var { Attachment } = require('discord.js');
 
 module.exports = class SitDown extends commando.Command {
     constructor(client) {
