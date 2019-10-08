@@ -1,5 +1,3 @@
-'use strict';
-
 import {Command} from '../../Command';
 const _request = require('request');
 const auth = require('../../../auth.json')

@@ -1,4 +1,3 @@
-'use strict';
 var _request = require('request');
 var mtgMessage = require('../../util/mtgCard');
 import {Command} from '../../Command';

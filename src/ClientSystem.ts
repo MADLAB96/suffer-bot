@@ -31,8 +31,8 @@ export default class ClientSystem {
 
     loadDefaultResponses() {
         let sourceResponse = new MessageResponse('Source',  { 
-            identifier: "source",
-            response: 'https://github.com/MADLAB96/suffer-bot'
+            id: "source",
+            res: 'https://github.com/MADLAB96/suffer-bot'
         });
 
         this.defaultResponses.push(sourceResponse);
@@ -42,13 +42,11 @@ export default class ClientSystem {
 
     loadDefaultCommands() {
         let diceCommand = new Command('Dice', { 
-            identifier: "dice",
+            id: "dice",
             description: "rolls a dice with <n> sides (default is 20)",
-            aliases: ["roll", "dice", "d20"],
             examples: ["!dice", "!dice <num>"],
             args: [{
                 key: 'number',
-                prompt: 'ROll yo dice',
                 type: 'integer',
                 default: '20'
             }],

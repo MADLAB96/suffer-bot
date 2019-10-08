@@ -1,4 +1,3 @@
-'use strict';
 var _request = require('request');
 import {Command} from '../../Command';
 
@@ -8,14 +7,19 @@ export const Xkcd = new Command('XKCD', {
     examples: ["!comic", "!comic <num>"],
     args: [{
         key: 'number',
-        type: 'integer|string',
+        type: 'string',
         default: 'random'
     }],
     run: async (msg: any, args: any) => {
-        if(args.number > 0) {
-            specificComic(msg, args);
-        } else if(args.number === 'random') {
+        if(args.number === 'random') {
             randomComic(msg);
+        } else {
+            let num = parseInt(args.number);
+            if(num !== NaN) {
+                specificComic(msg, num);
+            } else {
+                // TODO: Manage error
+            }
         }
     }
 });
@@ -23,7 +27,7 @@ export const Xkcd = new Command('XKCD', {
 function specificComic(msg: any, comicNum: any) {
     var baseURL = "http://xkcd.com/";
     var jsonURL = "info.0.json";
-    _request(`${baseURL}${comicNum.number}/${jsonURL}`, function(err: any, res: any, body: any) {
+    _request(`${baseURL}${comicNum}/${jsonURL}`, function(err: any, res: any, body: any) {
         var comic = JSON.parse(body); 
         var infoMsg = `${comic}: ${comic.title}\n${comic.img}`;  
         console.log(infoMsg);     

@@ -1,4 +1,3 @@
-'use strict';
 var heroes = require('../../../data/dotaheros.json').heroes;
 import {Command} from '../../Command';
 

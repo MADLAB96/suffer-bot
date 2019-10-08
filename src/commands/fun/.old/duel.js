@@ -1,6 +1,6 @@
 'use strict';
 var commando = require("discord.js-commando");
-var Outlaw = require('../../classes/outlaw');
+var Outlaw = require('../../../classes/outlaw');
 var outlawStorage = "./data/outlawData.json";
 var fs = require('fs');
 

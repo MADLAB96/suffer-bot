@@ -1,7 +1,7 @@
 'use strict';
 var commando = require("discord.js-commando");
-var Poll = require('../../classes/poll');
-var PollOption = require('../../classes/pollOption');
+var Poll = require('../../../classes/poll');
+var PollOption = require('../../../classes/pollOption');
 var pollStorage = "./data/pollData.json";
 var fs = require('fs');
 

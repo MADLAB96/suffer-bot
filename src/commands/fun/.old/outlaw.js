@@ -2,7 +2,7 @@
 var commando = require("discord.js-commando");
 var fs = require('fs');
 var outlawStorage = "./data/outlawData.json";
-var Outlaw = require('../../classes/outlaw');
+var Outlaw = require('../../../classes/outlaw');
 
 function ifAuthorHasOutlaw(author) {
     var found = false;

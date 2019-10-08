@@ -1,4 +1,3 @@
-'use strict';
 var _request = require('request');
 //var logger = require('winston');
 var auth = require('../../../auth.json');

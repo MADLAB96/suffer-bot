@@ -1,5 +1,3 @@
-'use strict';
-
 var _request = require('request');
 //var logger = require('winston');
 import {Command} from '../../Command';

@@ -45,7 +45,6 @@ export class Command extends Response {
     }
 
     verifyArgs(args: CommandArgs)  {
-        console.log('Assigning values from args::', args)
         this.id = args.id;
         this.description = args.description;
         this.aliases = args.aliases;

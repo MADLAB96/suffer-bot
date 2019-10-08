@@ -1,4 +1,3 @@
-'use strict';
 import {Command} from '../../Command';
 
 export const Dice = new Command('Dice', { 
