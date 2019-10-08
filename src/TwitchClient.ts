@@ -1,9 +1,9 @@
 var auth = require('../auth.json');
 var tmi = require('tmi.js');
 
-import { MessageResponse, Command } from './Command';
 import { Client, ClientType } from './Client';
 import { MessageResponseList } from './commands/responses';
+import DefaultCommands from './commands/fun';
 
 export default class TwitchClient extends Client {
     constructor() {
@@ -84,28 +84,7 @@ export default class TwitchClient extends Client {
     }
 
     private loadDefaultCommands() {
-        let diceCommand = new Command('Dice', { 
-            id: "dice",
-            description: "rolls a dice with <n> sides (default is 20)",
-            aliases: ["roll", "dice", "d20"],
-            examples: ["!dice", "!dice <num>"],
-            args: [{
-                key: 'number',
-                type: 'integer',
-                default: '20'
-            }],
-            run: async (msg: any, args: any) => {
-                if(args.number > 1) {
-                    var randRoll = Math.floor(Math.random() * args.number) + 1;
-                    return (`${msg.author} rolled a d${args.number} and got ${randRoll}`);
-                } else {
-                    return (`This bot is not for testing your theoretical dice.`);
-                }
-            }
-        });
-
-        this.defaultCommands.push(diceCommand);
-
+        this.defaultCommands = DefaultCommands;
         console.log(`loaded ${this.defaultCommands.length} default commands`);
     }
 }
