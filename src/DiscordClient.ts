@@ -1,7 +1,7 @@
 var auth = require('../auth.json');
 var Discord = require('discord.js');
 
-import { MessageResponse, Command } from './Command';
+import DefaultCommands from './commands/fun';
 import { Client, ClientType } from './Client';
 import { MessageResponseList } from './commands/responses';
 
@@ -14,6 +14,7 @@ export default class DiscordClient extends Client {
     }
 
     init() {
+        console.log('Building Discord Client:');
         const client = new Discord.Client();
 
         client.on('ready', () => {
@@ -46,10 +47,17 @@ export default class DiscordClient extends Client {
         });
         this.defaultCommands.forEach(async (command) => {
             let contentArr = content.split(" ");
-            console.log('content ::', contentArr);
-            console.log('contentID ::', command.id);
             if(command.id === contentArr[0]) {
-                let val = await command.run(msg, command.call(contentArr[1]));
+                console.log('Command match!', command.id, contentArr);
+                console.log('Command args', command.runArgs, command.parsedArgs);
+                let val; // TODO: this should have a default value
+                if(contentArr.length > 1) {
+                    console.log('Using called parameters', contentArr.slice(1));
+                    val = await command.run(msg, command.newCall(contentArr.slice(1)));
+                } else {
+                    console.log('Using default value');
+                    val = await command.run(msg, command.newCall());
+                }
                 msg.reply(val);
             }
         });
@@ -62,29 +70,7 @@ export default class DiscordClient extends Client {
     }
 
     private loadDefaultCommands() {
-        let diceCommand = new Command('Dice', { 
-            id: "dice",
-            description: "rolls a dice with <n> sides (default is 20)",
-            aliases: ["roll", "dice", "d20"],
-            examples: ["!dice", "!dice <num>"],
-            args: [{
-                key: 'number',
-                type: 'integer',
-                default: '20'
-            }],
-            run: async (msg: any, args: any) => {
-                if(args.number > 1) {
-                    var randRoll = Math.floor(Math.random() * args.number) + 1;
-                    return (`${msg.author} rolled a d${args.number} and got ${randRoll}`);
-                } else {
-                    return (`This bot is not for testing your theoretical dice.`);
-                }
-            }
-        });
-
-        console.log(diceCommand)
-        this.defaultCommands.push(diceCommand);
-
+        this.defaultCommands = DefaultCommands;
         console.log(`loaded ${this.defaultCommands.length} default commands`);
     }
 }

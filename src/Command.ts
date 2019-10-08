@@ -55,14 +55,17 @@ export class Command extends Response {
         this.initRunArgs();
     }
 
-    public call(...args: any[]) {
-        // TODO: more error checking
-        // assumes passes args and this.parsedArgs will have smae length        
+    public newCall(...args: any[]) {
+        // TODO: more error checking, this is the most important function for when a command is called.
+        // assumes passes args and this.parsedArgs will have smae length
+        args = args[0];
+        console.log('args', args, args.length)
         for(let i = 0; i < args.length; i++) {
             let keys = Object.keys(this.parsedArgs)
+            console.log('args @ i', i, args)
             this.parsedArgs[keys[i]] = args[i];
         }
-        console.log(this.parsedArgs)
+        console.log('parsed', this.parsedArgs)
         return this.parsedArgs;
     }
 

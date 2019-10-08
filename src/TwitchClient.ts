@@ -14,6 +14,8 @@ export default class TwitchClient extends Client {
     }
 
     init() {
+        console.log('Building Twitch Client:');
+
         // TODO: Import this from config file.
         const twitchOpts = {
             identity: {
@@ -66,12 +68,9 @@ export default class TwitchClient extends Client {
         });
         this.defaultCommands.forEach(async (command) => {
             let contentArr = msg.split(" ");
-            console.log('command', command)
-            console.log('content', contentArr)
             if(command.id === contentArr[0]) {
-
+                console.log('Command match!', command.id, contentArr)
                 let val = await command.run({author: context.username}, {number:  parseInt(contentArr[1]) });
-                console.log('@' + val)
                 this.clientObj.say(target, '@' + val);
             }
         });
@@ -79,7 +78,6 @@ export default class TwitchClient extends Client {
 
     private loadDefaultResponses() {
         this.defaultResponses = MessageResponseList;
-
         console.log(`loaded ${this.defaultResponses.length} default responses`);
     }
 
