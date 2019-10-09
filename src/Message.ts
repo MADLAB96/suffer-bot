@@ -11,7 +11,6 @@ export default class Message {
     //  eg) twitch will just use the username (madlab96)
     //  eg) discord has an id number as any number of users can have a username (209463122391196417) [len 18]
     public author: string;
-    // public arguements: Argument[]; // TODO: implement this ?
     
     constructor(client: ClientType, incoming: string, author: string) {
         this.client = client;

@@ -6,8 +6,6 @@ import { MtgSearch } from './mtgSearch';
 import { SimpsonsGifs } from './simpsons';
 import { Xkcd } from './xkcd';
 
-// TODO: make lists for each supported client
-
 export const TWITCH_LIST = [
     Cat, 
     Dice,
