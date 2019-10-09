@@ -3,7 +3,7 @@ Description=Discord Bot
 After=network.target
 
 [Service]
-ExecStart=/home/pi/repos/suffer-bot/bot.js
+ExecStart=/home/pi/repos/suffer-bot/build/src/bot.js
 # Restart=always
 User=nobody
 Group=nogroup
