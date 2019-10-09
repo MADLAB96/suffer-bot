@@ -1,6 +1,6 @@
 const {RichEmbed} = require('discord.js');
 
-module.exports = function embedMessage(cardObj) {
+module.exports = function embedMessage(cardObj: any) {
     if(cardObj.image_uris) {
         const embed = new RichEmbed()
             .setTitle(cardObj.name)

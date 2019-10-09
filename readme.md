@@ -1,8 +1,9 @@
 ## Suffer-Bot
 
-Barebones discord bot for personal use, will hopefully become something useful one day. *but not likely* 
-Currently running on a raspberry pi at home, being used in a couple of servers. 
+Barebones chat bot for personal use, will hopefully become something useful one day. *but not likely* 
+Currently running on a raspberry pi at home, being used in a couple of servers. Now supports Twitch and Discord clients. 
 
+### TODO Rewrite this
 * prerequisites: discord account
 * will have to get your own auth token from https://discordapp.com/developers/applications/
 * I followed this to get started https://medium.com/davao-js/tutorial-creating-a-simple-discord-bot-9465a2764dc0 most of it is outdated though

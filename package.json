@@ -1,6 +1,6 @@
 {
   "name": "suffer-bot",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "simple bot",
   "main": "src/bot.ts",
   "scripts": {
@@ -18,7 +18,6 @@
     "discord.js-commando": "^0.10.0",
     "html2plaintext": "^2.1.2",
     "path": "^0.12.7",
-    "request": "^2.88.0",
     "tmi.js": "^1.5.0"
   },
   "devDependencies": {
