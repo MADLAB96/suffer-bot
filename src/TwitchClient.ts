@@ -3,7 +3,7 @@ var tmi = require('tmi.js');
 
 import { Client, ClientType } from './Client';
 import { MessageResponseList } from './commands/responses';
-import DefaultCommands from './commands/fun';
+import { TWITCH_LIST } from './commands/fun';
 
 export default class TwitchClient extends Client {
     constructor() {
@@ -69,9 +69,18 @@ export default class TwitchClient extends Client {
         this.defaultCommands.forEach(async (command) => {
             let contentArr = msg.split(" ");
             if(command.id === contentArr[0]) {
-                console.log('Command match!', command.id, contentArr)
-                let val = await command.run({author: context.username}, {number:  parseInt(contentArr[1]) });
-                this.clientObj.say(target, '@' + val);
+                console.log('Command match!', command.id, contentArr);
+                console.log('Command args (using defaults at this point)', command.runArgs, command.parsedArgs);
+
+                let val: any;
+                if(contentArr.length > 1) {
+                    console.log('Using called parameters', contentArr.slice(1));
+                    val = await command.run({ author: target.slice(1) }, command.newCall(contentArr.slice(1)));
+                } else {
+                    val = await command.run({ author: target.slice(1) }, command.newCall([]));
+                }
+
+                this.clientObj.say(target, val);
             }
         });
     }
@@ -82,7 +91,7 @@ export default class TwitchClient extends Client {
     }
 
     private loadDefaultCommands() {
-        this.defaultCommands = DefaultCommands;
+        this.defaultCommands = TWITCH_LIST;
         console.log(`loaded ${this.defaultCommands.length} default commands`);
     }
 }

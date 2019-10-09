@@ -56,10 +56,6 @@ export class Command extends Response {
         this.initRunArgs();
     }
 
-    private newCallHelper(...args: any[]) {
-
-    }
-
     public newCall(...args: any[]) {
         // TODO: more error checking, this is the most important function for when a command is called.
         // assumes passes args and this.parsedArgs will have smae length

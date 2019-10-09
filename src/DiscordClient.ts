@@ -1,7 +1,7 @@
 var auth = require('../auth.json');
 var Discord = require('discord.js');
 
-import DefaultCommands from './commands/fun';
+import { DISCORD_LIST } from './commands/fun';
 import { Client, ClientType } from './Client';
 import { MessageResponseList } from './commands/responses';
 
@@ -68,7 +68,7 @@ export default class DiscordClient extends Client {
     }
 
     private loadDefaultCommands() {
-        this.defaultCommands = DefaultCommands;
+        this.defaultCommands = DISCORD_LIST;
         console.log(`loaded ${this.defaultCommands.length} default commands`);
     }
 }

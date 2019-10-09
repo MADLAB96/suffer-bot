@@ -7,7 +7,17 @@ import { SimpsonsGifs } from './simpsons';
 import { Xkcd } from './xkcd';
 
 // TODO: make lists for each supported client
-export default [
+
+export const TWITCH_LIST = [
+    Cat, 
+    Dice,
+    Dog, 
+    DotaPicker,
+    SimpsonsGifs,
+    Xkcd
+]
+
+export const DISCORD_LIST = [
     Cat, 
     Dice,
     Dog, 
