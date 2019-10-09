@@ -16,17 +16,14 @@ export const DotaPicker = new Command('DotaPicker', {
         switch (args.gamemode) {
             case 'allpick':
                 let i = Math.floor(Math.random() * heroes.length);
-                msg.channel.send(`${msg.author} will play ${heroes[i].localized_name}`);
-                break;
+                return (`${msg.author} will play ${heroes[i].localized_name}`);
             case 'randomDraft':
                 let hero1 = heroes[Math.floor(Math.random() * heroes.length)].localized_name;
                 let hero2 = heroes[Math.floor(Math.random() * heroes.length)].localized_name;
                 let hero3 = heroes[Math.floor(Math.random() * heroes.length)].localized_name;
-                msg.channel.send(`${msg.author} will chose from ${hero1}, ${hero2}, ${hero3}`);
-                break;
+                return (`${msg.author} will chose from ${hero1}, ${hero2}, ${hero3}`);
             default:
-                msg.channel.send(`Invalid game mode, pick from: allpick (default), randomDraft (3 heros)`);
-                break;
+                return (`Invalid game mode, pick from: allpick (default), randomDraft (3 heros)`);
         }
     }
 });

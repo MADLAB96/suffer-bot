@@ -1,5 +1,9 @@
-var _request = require('request');
 import {Command} from '../../Command';
+var axios = require('axios');
+
+const baseURL = "http://xkcd.com/";
+const jsonURL = "info.0.json";
+
 
 export const Xkcd = new Command('XKCD', {
     id: "comic",
@@ -12,11 +16,11 @@ export const Xkcd = new Command('XKCD', {
     }],
     run: async (msg: any, args: any) => {
         if(args.number === 'random') {
-            randomComic(msg);
+            return randomComic(msg);
         } else {
             let num = parseInt(args.number);
             if(num !== NaN) {
-                specificComic(msg, num);
+                return specificComic(msg, num);
             } else {
                 // TODO: Manage error
             }
@@ -25,30 +29,27 @@ export const Xkcd = new Command('XKCD', {
 });
 
 function specificComic(msg: any, comicNum: any) {
-    var baseURL = "http://xkcd.com/";
-    var jsonURL = "info.0.json";
-    _request(`${baseURL}${comicNum}/${jsonURL}`, function(err: any, res: any, body: any) {
-        var comic = JSON.parse(body); 
-        var infoMsg = `${comic}: ${comic.title}\n${comic.img}`;  
-        console.log(infoMsg);     
-        msg.channel.send(infoMsg, () => {
-            msg.channel.send(comic.alt);
-        });
+    return axios(`${baseURL}${comicNum}/${jsonURL}`).then((res: any) => {
+        return `${res.data.num}: ${res.data.title}\n${res.data.img}`;  
+    }).catch((err: any) => {
+        console.error(err)
     });
 }
 
 function randomComic(msg: any) {
-    var baseURL = "http://xkcd.com/";
-    var jsonURL = "info.0.json";
-    _request((baseURL+jsonURL), function(err: any, res: any, body: any) {        
-        var comic = JSON.parse(body);
-        var randComic = 1 + Math.floor(Math.random() * Math.floor(comic.num));
-        _request(`${baseURL}${randComic}/${jsonURL}`, function(err: any, res: any, body: any) {
-            var comic = JSON.parse(body); 
-            var infoMsg = `${randComic}: ${comic.title}\n${comic.img}`;       
-            msg.channel.send(infoMsg, () => {
-                msg.channel.send(comic.alt);
+    return axios.get((baseURL+jsonURL)).then((res: any) => {
+        var randComic = 1 + Math.floor(Math.random() * Math.floor(res.data.num));
+
+        return axios.get(`${baseURL}${randComic}/${jsonURL}`).then((res: any) => {
+            var infoMsg = `${randComic}: ${res.data.title}\n${res.data.img}`;
+            let val = new Promise((resolve, reject) => {
+                resolve(infoMsg);
             });
+            return val;
+        }).catch((err: any) => {
+            console.error(err)
         });
+    }).catch((err: any) => {
+        console.error(err)
     });
 }

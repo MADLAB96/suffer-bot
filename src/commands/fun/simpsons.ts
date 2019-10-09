@@ -2,6 +2,7 @@ import {Command} from '../../Command';
 const _request = require('request');
 const auth = require('../../../auth.json')
 const tenorUrl = 'https://api.tenor.com/v1/random?key=' + auth.tenorToken;
+const axios = require('axios');
 
 export const SimpsonsGifs = new Command('SimpsonsGIF', {
     id: "simpsons",
@@ -16,21 +17,18 @@ export const SimpsonsGifs = new Command('SimpsonsGIF', {
         }
     ],
     run: async (msg: any, args: any) => {
-        console.log(genUrl(args.extraSearch));
-        
-        _request(genUrl(args.extraSearch), function(err: any, res: any, body: any) {
-            if(err) console.log(err);
-            else {
-                let jsonBody = JSON.parse(body);
-                if(jsonBody.results && jsonBody.results.length !== 0) {
-                    let randId = Math.floor(Math.random() * jsonBody.results.length);
-                    msg.channel.send(jsonBody.results[randId].url);
-                } else {
-                    msg.channel.send('IDK Your search sucks, try again');
-                }
+        // console.log(genUrl(args.extraSearch)); // TODO: logger here 
+        return axios.get(genUrl(args.extraSearch)).then((res: any) => {
+            let jsonBody = res.data;
+            if(jsonBody.results && jsonBody.results.length !== 0) {
+                let randId = Math.floor(Math.random() * jsonBody.results.length);
+                return (jsonBody.results[randId].url);
+            } else {
+                return ('IDK Your search sucks, try again');
             }
+        }).catch((err: any) => {
+            console.error(err)
         });
-
     }
 }) 
 

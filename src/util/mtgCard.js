@@ -6,7 +6,7 @@ module.exports = function embedMessage(cardObj) {
             .setTitle(cardObj.name)
             .setColor(0x00FF55)
             .setImage(cardObj.image_uris.normal)
-            .addField('Est. Price', `$${cardObj.usd}`)
+            .addField('Est. Price', `Std $${cardObj.prices.usd} || Foil: $${cardObj.prices.usd_foil} `)
             .addField('Link', `[scryfall](${cardObj.scryfall_uri})`);
         return embed;
     } else if(cardObj.card_faces) {

@@ -1,5 +1,5 @@
-var _request = require('request');
-var mtgMessage = require('../../util/mtgCard');
+const axios = require('axios');
+const mtgMessage = require('../../util/mtgCard');
 import {Command} from '../../Command';
 
 const FUZZY_URL = "https://api.scryfall.com/cards/named?fuzzy=";
@@ -22,25 +22,16 @@ export const MtgSearch = new Command('MTGSearch', {
         if(args.cardName != "random") {
             let cardName = args.cardName.join("+");
             // logger.info(`Searching for: ${cardName}`);
-            _request((FUZZY_URL + cardName), function(err: any, res: any, body: any) {
-                // console.log(body);
-                if(err || res.statusCode != 200) {
-                    msg.channel.send('Not Found.');                
-                    // logger.error(`Did not find card: ${args.cardName}`);     
-                } else {
-                    var cardObj = JSON.parse(body);
-                    msg.channel.send(mtgMessage(cardObj));
-                }
+            return axios(FUZZY_URL + cardName).then((res: any) => {
+                return (mtgMessage(res.data));
+            }).catch((err: any) => {
+                console.error(err)
             });
         } else {
-            _request(RANDOM_URL, function(err: any, res: any, body: any) {
-                if(err || res.statusCode != 200) {
-                    msg.channel.send('Error searching for randod card');                
-                    // logger.error('Error searching for randod card');     
-                } else {
-                    var cardObj = JSON.parse(body);
-                    msg.channel.send(mtgMessage(cardObj));
-                }
+            return axios(RANDOM_URL).then((res: any) => {
+                return (mtgMessage(res.data));
+            }).catch((err: any) => {
+                console.error(err)
             });
         }
     }

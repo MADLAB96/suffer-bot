@@ -49,23 +49,21 @@ export default class DiscordClient extends Client {
             let contentArr = content.split(" ");
             if(command.id === contentArr[0]) {
                 console.log('Command match!', command.id, contentArr);
-                console.log('Command args', command.runArgs, command.parsedArgs);
-                let val; // TODO: this should have a default value
+                console.log('Command args (using defaults at this point)', command.runArgs, command.parsedArgs);
+                let val: any; // TODO: this should have a default value
                 if(contentArr.length > 1) {
                     console.log('Using called parameters', contentArr.slice(1));
                     val = await command.run(msg, command.newCall(contentArr.slice(1)));
                 } else {
-                    console.log('Using default value');
-                    val = await command.run(msg, command.newCall());
+                    val = await command.run(msg, command.newCall([]));
                 }
-                msg.reply(val);
+                msg.channel.send(val);
             }
         });
     }
 
     private loadDefaultResponses() {
         this.defaultResponses = MessageResponseList;
-
         console.log(`loaded ${this.defaultResponses.length} default responses`);
     }
 
