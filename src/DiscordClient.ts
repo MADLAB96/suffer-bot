@@ -47,15 +47,17 @@ export default class DiscordClient extends Client {
         });
         this.defaultCommands.forEach(async (command) => {
             let contentArr = content.split(" ");
-            if(command.id === contentArr[0]) {
+            if(command.aliases.includes(contentArr[0])) {
                 console.log('Command match!', command.id, contentArr);
                 console.log('Command args (using defaults at this point)', command.runArgs, command.parsedArgs);
                 let val: any; // TODO: this should have a default value
                 if(contentArr.length > 1) {
                     console.log('Using called parameters', contentArr.slice(1));
                     val = await command.run(msg, command.newCall(contentArr.slice(1)));
+                    command.clean();
                 } else {
                     val = await command.run(msg, command.newCall([]));
+                    command.clean();
                 }
                 msg.channel.send(val);
             }

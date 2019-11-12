@@ -28,7 +28,7 @@ export class Response {
 export class Command extends Response {
     public id: string;
     public description: string;
-    public aliases: string[] | undefined;
+    public aliases: string[];
     public examples: string[] | undefined;
     public runArgs: RunArgs[];
     public parsedArgs: any;
@@ -47,12 +47,22 @@ export class Command extends Response {
     verifyArgs(args: CommandArgs)  {
         this.id = args.id;
         this.description = args.description;
-        this.aliases = args.aliases;
         this.examples = args.examples;
         if(args.args) this.runArgs = args.args;
         else args.args = [];
+
+        if(args.aliases) this.aliases = args.aliases;
+        else args.aliases = [ this.id ]; // default to this.id being the only possible alias
         this.run = args.run;
 
+        this.initRunArgs();
+    }
+
+    public clean() {
+        // Helper function to cleanup arguements after/before command is ran.
+        //      - Created to fix a bug where arguments persist between commands.
+        //      - if further bugs arise from this, add more to this cleaner function. 
+        //              - OR make it required like run();
         this.initRunArgs();
     }
 
@@ -61,12 +71,12 @@ export class Command extends Response {
         // assumes passes args and this.parsedArgs will have smae length
 
         args = args[0];
-        console.log('args', args, args.length)
         for(let i = 0; i < args.length; i++) {
             let keys = Object.keys(this.parsedArgs)
-            console.log('args @ i', i, args)
+            console.log('newCall::Parse ARGS @ i', i, args)
             if(this.runArgs[i].infinite === true) {
-                this.parsedArgs[keys[i]] = [ args[i] ];
+                this.parsedArgs[keys[i]] = args.splice(i, args.length);
+                break;
             } else {
                 this.parsedArgs[keys[i]] = args[i];
             }

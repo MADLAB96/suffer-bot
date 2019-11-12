@@ -17,13 +17,13 @@ export const DotaPicker = new Command('DotaPicker', {
             case 'allpick':
                 let i = Math.floor(Math.random() * heroes.length);
                 return (`${msg.author} will play ${heroes[i].localized_name}`);
-            case 'randomDraft':
+            case 'singleDraft':
                 let hero1 = heroes[Math.floor(Math.random() * heroes.length)].localized_name;
                 let hero2 = heroes[Math.floor(Math.random() * heroes.length)].localized_name;
                 let hero3 = heroes[Math.floor(Math.random() * heroes.length)].localized_name;
                 return (`${msg.author} will chose from ${hero1}, ${hero2}, ${hero3}`);
             default:
-                return (`Invalid game mode, pick from: allpick (default), randomDraft (3 heros)`);
+                return (`${msg.author} Invalid game mode, pick from: allpick (default), randomDraft (3 heros)`);
         }
     }
 });

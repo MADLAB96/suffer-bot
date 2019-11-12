@@ -60,6 +60,7 @@ export default class TwitchClient extends Client {
 
     private async handleTwitchMessage(target: string, context: any, msg: string) {
         // already know that this is a Response, skip prefix check
+        console.log('Incoming Twitch message!')
         this.defaultResponses.forEach(async (resp) => {
             console.log('resp', resp)
             if(resp.id === msg) {
@@ -68,7 +69,7 @@ export default class TwitchClient extends Client {
         });
         this.defaultCommands.forEach(async (command) => {
             let contentArr = msg.split(" ");
-            if(command.id === contentArr[0]) {
+            if(command.aliases.includes(contentArr[0])) {
                 console.log('Command match!', command.id, contentArr);
                 console.log('Command args (using defaults at this point)', command.runArgs, command.parsedArgs);
 
@@ -76,8 +77,10 @@ export default class TwitchClient extends Client {
                 if(contentArr.length > 1) {
                     console.log('Using called parameters', contentArr.slice(1));
                     val = await command.run({ author: target.slice(1) }, command.newCall(contentArr.slice(1)));
+                    command.clean();
                 } else {
                     val = await command.run({ author: target.slice(1) }, command.newCall([]));
+                    command.clean();
                 }
 
                 this.clientObj.say(target, val);

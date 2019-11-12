@@ -8,7 +8,7 @@ const RANDOM_URL = "https://api.scryfall.com/cards/random";
 export const MtgSearch = new Command('MTGSearch', {
     id: "mtg",
     description: "search for mtg card",
-    aliases: ["mtg", "magic", 'mtgsearch'],
+    aliases: ["mtg", "magic", 'mtgsearch', 'card'],
     examples: ["!mtg"],
     args: [
         {
@@ -19,8 +19,11 @@ export const MtgSearch = new Command('MTGSearch', {
         },
     ],
     run: async (msg: any, args: any) => {
+        console.log(args);
         if(args.cardName != "random") {
             let cardName = args.cardName.join("+");
+            console.log(cardName);
+
             // logger.info(`Searching for: ${cardName}`);
             return axios(FUZZY_URL + cardName).then((res: any) => {
                 return (mtgMessage(res.data));
