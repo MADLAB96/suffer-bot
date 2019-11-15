@@ -4,7 +4,7 @@
   "description": "simple bot",
   "main": "src/bot.ts",
   "scripts": {
-    "start": "node build/start.js",
+    "start": "node build/src/bot.js",
     "dev": "nodemon --config \"./util/nodemon.json\"/",
     "build": "rm -rf ./build/ && tsc",
     "test": "echo \"Error: no test specified\" && exit 1"

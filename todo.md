@@ -12,6 +12,10 @@
     - [x] distinguish Commands and Responses      
       - My main critism of Commando. Simple text responses are commands.
 
+ - [ ] finishing Rewrite
+   - [ ]  Implement Commands/Responses with Attachments
+   - [ ]  One to many global aliases
+
  - [ ] Database integration. (mongo lite?? if exists otherwise do sqlite idc)
     - [ ] basic metrics 
     - [ ] "API" using commands to add/remove/update stored responces
