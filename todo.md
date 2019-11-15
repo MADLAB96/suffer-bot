@@ -14,10 +14,10 @@
       - My main critism of Commando. Simple text responses are commands.
 
  - [ ] finishing Rewrite
-   - [ ]  Implement Commands/Responses with Attachments
+   - [X]  Implement Commands/Responses with Attachments
    - [ ]  One to many global aliases
    - [ ]  Trivia??? 
-     - it kinda sucks, need new API if its to be added back
+     - it kinda sucks, needs new API if its to be added back
 
  - [ ] Database integration. (mongo lite?? if exists otherwise do sqlite idc)
     - [ ] basic metrics 
