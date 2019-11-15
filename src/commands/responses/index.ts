@@ -1,6 +1,8 @@
 import { MessageResponse } from '../../Command';
-import * as songs from "../../../data/songs.json";
-import * as categoryCodes from '../../../data/triviaCategories.json';
+import * as songs from "../../data/songs.json";
+import * as categoryCodes from '../../data/triviaCategories.json';
+
+const {Attachment} = require('discord.js');
 
 export const MessageResponseList: MessageResponse[] = [
     new MessageResponse('Source', {id: 'source', res: 'https://github.com/MADLAB96/suffer-bot'}),

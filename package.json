@@ -1,12 +1,13 @@
 {
   "name": "suffer-bot",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "simple bot",
   "main": "src/bot.ts",
   "scripts": {
-    "start": "node build/src/bot.js",
+    "start": "node build/bot.js",
     "dev": "nodemon --config \"./util/nodemon.json\"/",
-    "build": "rm -rf ./build/ && tsc",
+    "build": "rm -rf ./build/ && tsc && npm run post-build",
+    "post-build": "cp ./auth.json ./build/ && cp -r ./src/data/ ./build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

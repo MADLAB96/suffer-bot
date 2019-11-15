@@ -1,4 +1,4 @@
-var heroes = require('../../../data/dotaheros.json').heroes;
+var heroes = require('../../data/dotaheros.json').heroes;
 import {Command} from '../../Command';
 
 export const DotaPicker = new Command('DotaPicker', {

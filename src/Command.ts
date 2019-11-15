@@ -1,5 +1,6 @@
 import { isObject } from 'util';
 import { CommandArgs, ResponseArgs, RunArgs } from './Arguments';
+const {Attachment} = require('discord.js');
 
 /*
     what should this class do?
@@ -13,7 +14,7 @@ export class Response {
     public res: string;
     public aliases: string[] | undefined;
     public tts: boolean | undefined;
-    public attachment: any;
+    public attachment: any; // TODO: find a way to import Attachment type
 
     constructor(name: any) {
         if (name) this.name = name;

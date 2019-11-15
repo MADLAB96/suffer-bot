@@ -42,7 +42,8 @@ export default class DiscordClient extends Client {
         console.log('Incoming Discord message!')
         this.defaultResponses.forEach(async (resp) => {
             if(resp.id === content) {
-                msg.reply(resp.res);
+                if(resp.tts) msg.reply(resp.res, {tts: true});
+                else msg.reply(resp.res);
             }
         });
         this.defaultCommands.forEach(async (command) => {
