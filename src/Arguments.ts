@@ -1,6 +1,6 @@
 export type ResponseArgs = {
     id: string,
-    res: string,
+    res?: string,
     aliases?: string[],
     attachment?: any,
     tts?: boolean

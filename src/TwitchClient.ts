@@ -2,8 +2,8 @@ var auth = require('../auth.json');
 var tmi = require('tmi.js');
 
 import { Client, ClientType } from './Client';
-import { MessageResponseList } from './commands/responses';
-import { TWITCH_LIST } from './commands/fun';
+import { TWITCH_RESPONSE_LIST } from './commands/responses';
+import { TWITCH_COMMAND_LIST } from './commands/fun';
 
 export default class TwitchClient extends Client {
     constructor() {
@@ -89,12 +89,12 @@ export default class TwitchClient extends Client {
     }
 
     private loadDefaultResponses() {
-        this.defaultResponses = MessageResponseList;
+        this.defaultResponses = TWITCH_RESPONSE_LIST;
         console.log(`loaded ${this.defaultResponses.length} default responses`);
     }
 
     private loadDefaultCommands() {
-        this.defaultCommands = TWITCH_LIST;
+        this.defaultCommands = TWITCH_COMMAND_LIST;
         console.log(`loaded ${this.defaultCommands.length} default commands`);
     }
 }

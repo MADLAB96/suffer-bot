@@ -3,6 +3,7 @@
     - [ ] urban dictionary
     - [ ] lunch command
     - [ ] Pet Bomb
+    - [ ] RUBY
     - [ ] Add new response to DB
 
  - [x] Twitch integration (bot re-write)
@@ -15,6 +16,8 @@
  - [ ] finishing Rewrite
    - [ ]  Implement Commands/Responses with Attachments
    - [ ]  One to many global aliases
+   - [ ]  Trivia??? 
+     - it kinda sucks, need new API if its to be added back
 
  - [ ] Database integration. (mongo lite?? if exists otherwise do sqlite idc)
     - [ ] basic metrics 

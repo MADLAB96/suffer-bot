@@ -1,9 +1,9 @@
 var auth = require('../auth.json');
 var Discord = require('discord.js');
 
-import { DISCORD_LIST } from './commands/fun';
+import { DISCORD_COMMAND_LIST } from './commands/fun';
+import { DISCORD_RESPONSE_LIST } from './commands/responses';
 import { Client, ClientType } from './Client';
-import { MessageResponseList } from './commands/responses';
 
 export default class DiscordClient extends Client {
     constructor() {
@@ -22,8 +22,9 @@ export default class DiscordClient extends Client {
         });
 
         client.on('message', (msg: any) => {
+            // TODO: replace slice() with a prefix remover function
             if (msg.content.trim()[0] === '!'){
-                this.handleDiscordMessage(msg, msg.content.slice(1)); // TODO: replace slice() with a prefix remover function
+                this.handleDiscordMessage(msg, msg.content.slice(1)); 
             }
         });
 
@@ -42,8 +43,11 @@ export default class DiscordClient extends Client {
         console.log('Incoming Discord message!')
         this.defaultResponses.forEach(async (resp) => {
             if(resp.id === content) {
+                // Check for text to speech
                 if(resp.tts) msg.reply(resp.res, {tts: true});
-                else msg.reply(resp.res);
+                else if(resp.res) msg.reply(resp.res);
+                else if(resp.attachment) msg.channel.send(resp.attachment);
+                else console.error('NO res or attachment in RESP object.');
             }
         });
         this.defaultCommands.forEach(async (command) => {
@@ -51,7 +55,7 @@ export default class DiscordClient extends Client {
             if(command.aliases.includes(contentArr[0])) {
                 console.log('Command match!', command.id, contentArr);
                 console.log('Command args (using defaults at this point)', command.runArgs, command.parsedArgs);
-                let val: any; // TODO: this should have a default value
+                let val: any = '';
                 if(contentArr.length > 1) {
                     console.log('Using called parameters', contentArr.slice(1));
                     val = await command.run(msg, command.newCall(contentArr.slice(1)));
@@ -66,12 +70,12 @@ export default class DiscordClient extends Client {
     }
 
     private loadDefaultResponses() {
-        this.defaultResponses = MessageResponseList;
+        this.defaultResponses = DISCORD_RESPONSE_LIST;
         console.log(`loaded ${this.defaultResponses.length} default responses`);
     }
 
     private loadDefaultCommands() {
-        this.defaultCommands = DISCORD_LIST;
+        this.defaultCommands = DISCORD_COMMAND_LIST;
         console.log(`loaded ${this.defaultCommands.length} default commands`);
     }
 }

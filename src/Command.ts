@@ -11,10 +11,10 @@ const {Attachment} = require('discord.js');
 
 export class Response {
     public name: string;
-    public res: string;
+    public res: string | undefined;
     public aliases: string[] | undefined;
     public tts: boolean | undefined;
-    public attachment: any; // TODO: find a way to import Attachment type
+    public attachment: any; // TODO: find a way to import Attachment Type
 
     constructor(name: any) {
         if (name) this.name = name;
@@ -90,8 +90,7 @@ export class Command extends Response {
         // TODO: add error checking here (assumed its an integer)
         if(arg.default) {
             this.parsedArgs[arg.key] = parseInt(arg.default);
-        }
-        else {
+        } else {
             this.parsedArgs[arg.key] = 0;
         }
     }

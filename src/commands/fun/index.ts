@@ -6,7 +6,7 @@ import { MtgSearch } from './mtgSearch';
 import { SimpsonsGifs } from './simpsons';
 import { Xkcd } from './xkcd';
 
-export const TWITCH_LIST = [
+export const TWITCH_COMMAND_LIST = [
     Cat, 
     Dice,
     Dog, 
@@ -15,7 +15,7 @@ export const TWITCH_LIST = [
     Xkcd
 ]
 
-export const DISCORD_LIST = [
+export const DISCORD_COMMAND_LIST = [
     Cat, 
     Dice,
     Dog, 
