@@ -14,6 +14,9 @@
     - [x] Modular commands (Discord(A,B,C), Twitch(A, C, D)) given commands A, B, C, D
     - [x] distinguish Commands and Responses      
       - My main critism of Commando. Simple text responses are commands.
+  
+ - [ ] Slack API integration
+    - mirror twitch implementation
 
  - [ ] finishing Rewrite
    - [X]  Implement Commands/Responses with Attachments
