@@ -5,30 +5,27 @@ var auth = require('../auth.json');
 
 /*
 CREATE TABLE response (
-    name TEXT PRIMARY KEY,
+    name TEXT PRIMARY KEY UNIQUE,
     response TEXT NOT NULL,
-    createdBy TEXT NOT NULL,
+    createdBy INTEGER NOT NULL,
     createdOn DATE DEFAULT CURRENT_TIMESTAMP,
     tts BOOLEAN NOT NULL,
-    CONSTRAINT fk_user_id FOREIGN KEY (createdBy) REFERENCES botUsers(id)
+    CONSTRAINT fk_user_id FOREIGN KEY (createdBy) REFERENCES botUser(id)
 );
 
 CREATE TABLE botUser (
-    id SERIAL,
-    type: accessType,
-    privliage: privType
-    tts: BOOLEAN NOT NULL,
-    userName: TEXT NOT NULL
+    id SERIAL UNIQUE,
+    access accessType,
+    privilege privType,
+    tts BOOLEAN NOT NULL,
+    userName TEXT NOT NULL
 );
 
 CREATE TYPE accessType AS ENUM ('discord', 'twitch', 'slack');
 CREATE TYPE privType AS ENUM ('full', 'partial', 'none');
 
-INSERT INTO responses(
-    name, response, createdBy, tts
-) VALUES (
-    'test', 'TESTING GAMERS', '@mitch', false
-);
+INSERT INTO botUser (id, access, privilege, tts, userName) VALUES (DEFAULT, 'discord', 'full', true, 'madlab');
+INSERT INTO response (name, response, createdBy, tts) VALUES ('test1', 'this is a test', 1, false);
 */
 
 const { Pool } = require('pg');
