@@ -1,10 +1,12 @@
 ## Todo
  - more commands
-    - [ ] urban dictionary
-    - [ ] lunch command
-    - [ ] Pet Bomb
+    - [ ] lunch command (if there is ever interest for it)
     - [ ] RUBY
-    - [ ] Add new response to DB
+      - [ ] Actually find a service to upload pictures too. (imgur API sucks)
+      - [ ] Add special case to dog command
+    - [ ] dota counter picker
+      - [ ] Explore different APIs that might supply this data (opendota, dotabuff, etc)
+      - [ ] Limit this and DotaPicker to a bots channel.
 
  - [x] Twitch integration (bot re-write)
     - [x] To make commands generic (Twitch, discord, etc.)
@@ -12,6 +14,9 @@
     - [x] Modular commands (Discord(A,B,C), Twitch(A, C, D)) given commands A, B, C, D
     - [x] distinguish Commands and Responses      
       - My main critism of Commando. Simple text responses are commands.
+  
+ - [ ] Slack API integration
+    - mirror twitch implementation
 
  - [ ] finishing Rewrite
    - [X]  Implement Commands/Responses with Attachments
@@ -23,6 +28,11 @@
     - [ ] basic metrics 
     - [ ] "API" using commands to add/remove/update stored responces
       - Could start this before the DB is up by pointing to local storage
+ 
+ - [ ] Start to implement permissions and admin capabilities
+    - [ ] Admin user can use certain commands
+    - [ ] Limit certain commands to 'bot channels'
 
- - [ ] Re Add logging
- - [ ] Cleanup TODO tags in code.
+ - [ ] Add logging (watson) back in.
+ 
+ ### Cleanup TODO tags in code.
