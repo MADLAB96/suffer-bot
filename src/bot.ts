@@ -11,3 +11,7 @@ import DiscordClient from './DiscordClient';
 // init the client system
 // let tc = new TwitchClient();
 let dc = new DiscordClient();
+
+import ResponseCall from './database';
+
+ResponseCall.readAll();

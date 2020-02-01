@@ -51,7 +51,7 @@ function query(text: any) {
 }
 
 
-const User = {
+export default {
   async readAll() {
     try {
       const readAllQuery = 'SELECT * FROM responses';
@@ -63,4 +63,3 @@ const User = {
   }
 };
 
-User.readAll();
