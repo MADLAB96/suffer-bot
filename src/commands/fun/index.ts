@@ -5,6 +5,8 @@ import { DotaPicker } from './dotapicker';
 import { MtgSearch } from './mtgSearch';
 import { SimpsonsGifs } from './simpsons';
 import { Xkcd } from './xkcd';
+import { CoronaCount } from './corona';
+
 
 export const TWITCH_COMMAND_LIST = [
     Cat, 
@@ -22,5 +24,6 @@ export const DISCORD_COMMAND_LIST = [
     DotaPicker,
     MtgSearch, 
     SimpsonsGifs,
-    Xkcd
+    Xkcd, 
+    CoronaCount,
 ]
