@@ -11,12 +11,12 @@ export const CoronaCount = new Command('CoronaCount', {
     examples: ["!corona"],
     run: async (msg: any, args: any) => {
         return puppeteer
-          .launch()
+          .launch({ executablePath: 'chromium-browser' })
           .then(function(browser: any) {
             return browser.newPage();
           })
           .then(function(page: any) {
-            return page.goto(url,  {waitUntil: 'networkidle2'}).then(function() {
+            return page.goto(url,  {waitUntil: 'networkidle0'}).then(function() {
               return page.content();
             });
           })
@@ -55,7 +55,8 @@ export const CoronaCount = new Command('CoronaCount', {
           })
           .catch(function(err: any) {
             //handle error
-            return ('whoops they changed the page a lot')
+		console.log(err);
+            return ('whoops they changed the page a lot');
           });
     }
 });
