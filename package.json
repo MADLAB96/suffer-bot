@@ -7,7 +7,7 @@
     "start": "node build/bot.js",
     "dev": "nodemon --config \"./util/nodemon.json\"/",
     "build": "rm -rf ./build/ && tsc && npm run post-build",
-    "post-build": "cp ./auth.json ./build/ && cp -r ./src/data/ ./build/data",
+    "post-build": "cp ./auth.json ./build/ && cp -r ./src/data/ ./build",
     "test": "echo \"Error: no test specified\" && exit 1",
     "reload": "sudo cp myapp.service /etc/systemd/system/ && systemctl daemon-reload"
   },
