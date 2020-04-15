@@ -7,6 +7,7 @@ import { SimpsonsGifs } from './simpsons';
 import { Xkcd } from './xkcd';
 import { AddResponse } from './addResponses';
 import { CoronaCount } from './corona';
+import { AnimalCrossing } from './ac';
 
 export const TWITCH_COMMAND_LIST = [
     Cat, 
@@ -27,4 +28,5 @@ export const DISCORD_COMMAND_LIST = [
     Xkcd,
     AddResponse,
     CoronaCount,
+    AnimalCrossing
 ]
