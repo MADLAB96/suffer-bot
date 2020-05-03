@@ -87,6 +87,8 @@ export default class DiscordClient extends Client {
             });
     
             this.storedResponses = formatedList;
+            console.log(`loaded ${this.storedResponses.length} stored responses`);
+
         } catch(error) {
             //TODO: do something with a db error XD
         }
