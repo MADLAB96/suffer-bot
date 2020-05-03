@@ -12,7 +12,11 @@ export const Watchlist = new Command('Watchlist', {
     run: async (msg: any, args: any) => {
         try {
             let res = await getWatchlist();
-            return 'watchlist:' + res;
+            let movieList = '';
+            res.forEach((movie: any) => {
+                movieList += movie.name + ' ';
+            });
+            return 'watchlist: ' + movieList;
         } catch(error) {
             console.log(error);
             return error;
