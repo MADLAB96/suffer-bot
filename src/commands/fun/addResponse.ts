@@ -2,6 +2,7 @@ const axios = require('axios');
 const mtgMessage = require('../../util/mtgCard');
 import {Command} from '../../Command';
 import {addResponse} from '../../util/queries';
+import discordClient from '../../bot';
 
 export const AddResponse = new Command('AddResponse', {
     id: "add",
@@ -30,6 +31,7 @@ export const AddResponse = new Command('AddResponse', {
             try {
                 let res = await addResponse(args.resName, args.resText);
                 console.log(res);
+                discordClient.loadStoredResponses();
                 return 'reee';
             } catch(error) {
                 console.log(error);

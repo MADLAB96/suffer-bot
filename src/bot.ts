@@ -10,13 +10,6 @@ import TwitchClient from './TwitchClient';
 import DiscordClient from './DiscordClient';
 // init the client system
 // let tc = new TwitchClient();
-let dc = new DiscordClient();
+let discordClient = new DiscordClient();
 
-import { getResponses, getWatchlist } from './util/queries';
-
-async function test() {
-    console.log('responses', await getResponses());
-    console.log('watchlist', await getWatchlist());
-}
-
-test();
+export default discordClient;

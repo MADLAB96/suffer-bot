@@ -86,7 +86,7 @@ export default class DiscordClient extends Client {
         console.log(`loaded ${this.defaultResponses.length} default responses`);
     }
 
-    private async loadStoredResponses() {
+    async loadStoredResponses() {
         try {
             let storedList = await getResponses();
             let formatedList: MessageResponse[] = [];
