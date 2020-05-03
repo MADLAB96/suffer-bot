@@ -14,9 +14,9 @@ export const Watchlist = new Command('Watchlist', {
             let res = await getWatchlist();
             let movieList = '';
             res.forEach((movie: any) => {
-                movieList += movie.name + ' ';
+                movieList += movie.name + ', ';
             });
-            return 'watchlist: ' + movieList;
+            return 'Watchlist: ' + movieList;
         } catch(error) {
             console.log(error);
             return error;
