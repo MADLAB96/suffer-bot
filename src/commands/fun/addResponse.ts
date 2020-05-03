@@ -29,7 +29,7 @@ export const AddResponse = new Command('AddResponse', {
             console.log('new resText', resText);
 
             try {
-                let res = await addResponse(args.resName, args.resText);
+                let res = await addResponse(args.resName, resText);
                 console.log(res);
                 discordClient.loadStoredResponses();
                 return `Added! Type !${args.resName} to see the new response`;
