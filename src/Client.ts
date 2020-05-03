@@ -5,13 +5,14 @@ export class Client {
     public clientObj: any;
     public defaultCommands: Command[]; // TODO: Create class for ResponseGroup
     public defaultResponses: MessageResponse[]; // TODO: Create class for ResponseGroup
-    // public storedResponses: any;
+    public storedResponses: MessageResponse[];
 
     constructor(type: ClientType) {
         this.type = type; // replace with ClientType later??
         this.clientObj = {};
         this.defaultResponses = [];
         this.defaultCommands = [];
+        this.storedResponses = [];
     }
 
 

@@ -4,6 +4,8 @@ var Discord = require('discord.js');
 import { DISCORD_COMMAND_LIST } from './commands/fun';
 import { DISCORD_RESPONSE_LIST } from './commands/responses';
 import { Client, ClientType } from './Client';
+import { getResponses } from './util/queries';
+import { MessageResponse } from './Command';
 
 export default class DiscordClient extends Client {
     constructor() {
@@ -36,6 +38,7 @@ export default class DiscordClient extends Client {
     load() {
         this.loadDefaultCommands();
         this.loadDefaultResponses();
+        this.loadStoredResponses();
     }
 
     private async handleDiscordMessage(msg: any, content: string) {
@@ -73,6 +76,21 @@ export default class DiscordClient extends Client {
         this.defaultResponses = DISCORD_RESPONSE_LIST;
         console.log(`loaded ${this.defaultResponses.length} default responses`);
     }
+
+    private async loadStoredResponses() {
+        try {
+            let storedList = await getResponses();
+            let formatedList: MessageResponse[] = [];
+    
+            storedList.forEach((response: any) => {
+                formatedList.push(new MessageResponse(response.name, {id: response.name, res: response.response, tts: response.tts}));
+            });
+    
+            this.storedResponses = formatedList;
+        } catch(error) {
+            //TODO: do something with a db error XD
+        }
+    } 
 
     private loadDefaultCommands() {
         this.defaultCommands = DISCORD_COMMAND_LIST;
