@@ -12,6 +12,7 @@ import DiscordClient from './DiscordClient';
 // let tc = new TwitchClient();
 let dc = new DiscordClient();
 
-import ResponseCall from './database';
+import { getResponses, getWatchlist } from './util/queries';
 
-ResponseCall.readAll();
+console.log(getResponses());
+console.log(getWatchlist());
