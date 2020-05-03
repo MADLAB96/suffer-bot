@@ -3,13 +3,13 @@ Description=Discord Bot
 After=network.target
 
 [Service]
-ExecStart=/usr/bin/node /home/pi/repos/suffer-bot/build/bot.js
+ExecStart=/usr/bin/node /home/madlab/repos/suffer-bot/build/bot.js
 # Restart=always
 User=nobody
 Group=nogroup
 Environment=PATH=/usr/bin:/usr/local/bin
 Environment=NODE_ENV=production
-WorkingDirectory=~/repos/suffer-bot/build
+WorkingDirectory=/home/madlab/repos/suffer-bot/build
 StartLimitIntervalSec=0
 
 [Install]
