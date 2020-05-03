@@ -24,7 +24,7 @@ export const AddMovie = new Command('AddMovie', {
             console.log('new resText', movieName);
 
             try {
-                let res = await addMovie(args.movieName);
+                let res = await addMovie(movieName);
                 console.log(res);
                 return `Added ${movieName} to the watch list.`;
             } catch(error) {
