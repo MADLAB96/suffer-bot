@@ -44,15 +44,6 @@ export default class DiscordClient extends Client {
     private async handleDiscordMessage(msg: any, content: string) {
         // already know that this is a Response, skip prefix check
         console.log('Incoming Discord message!')
-        this.defaultResponses.forEach(async (resp) => {
-            if(resp.id === content) {
-                // Check for text to speech
-                if(resp.tts) msg.reply(resp.res, {tts: true});
-                else if(resp.res) msg.reply(resp.res);
-                else if(resp.attachment) msg.channel.send(resp.attachment);
-                else console.error('NO res or attachment in RESP object.');
-            }
-        });
         this.defaultCommands.forEach(async (command) => {
             let contentArr = content.split(" ");
             if(command.aliases.includes(contentArr[0])) {
@@ -68,6 +59,24 @@ export default class DiscordClient extends Client {
                     command.clean();
                 }
                 msg.channel.send(val);
+            }
+        });
+        this.defaultResponses.forEach(async (resp) => {
+            if(resp.id === content) {
+                // Check for text to speech
+                if(resp.tts) msg.reply(resp.res, {tts: true});
+                else if(resp.res) msg.reply(resp.res);
+                else if(resp.attachment) msg.channel.send(resp.attachment);
+                else console.error('NO res or attachment in RESP object.');
+            }
+        });
+        this.storedResponses.forEach(async (resp) => {
+            if(resp.id === content) {
+                // Check for text to speech
+                if(resp.tts) msg.reply(resp.res, {tts: true});
+                else if(resp.res) msg.reply(resp.res);
+                else if(resp.attachment) msg.channel.send(resp.attachment);
+                else console.error('NO res or attachment in RESP object.');
             }
         });
     }
