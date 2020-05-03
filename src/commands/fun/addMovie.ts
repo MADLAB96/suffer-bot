@@ -26,8 +26,7 @@ export const AddMovie = new Command('AddMovie', {
             try {
                 let res = await addMovie(args.movieName);
                 console.log(res);
-                discordClient.loadStoredResponses();
-                return `Added ${args.movieName} to the watch list.`;
+                return `Added ${movieName} to the watch list.`;
             } catch(error) {
                 console.log(error);
                 return error;
