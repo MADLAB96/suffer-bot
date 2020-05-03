@@ -6,6 +6,9 @@ import { MtgSearch } from './mtgSearch';
 import { SimpsonsGifs } from './simpsons';
 import { Xkcd } from './xkcd';
 import { AddResponse } from './addResponse';
+import { AddMovie } from './addMovie';
+import { WatchedMovie } from './watchedMovie';
+import { Watchlist } from './watchlist';
 
 export const TWITCH_COMMAND_LIST = [
     Cat, 
@@ -24,5 +27,8 @@ export const DISCORD_COMMAND_LIST = [
     MtgSearch, 
     SimpsonsGifs,
     Xkcd,
-    AddResponse
+    AddResponse,
+    AddMovie,
+    WatchedMovie,
+    Watchlist
 ]

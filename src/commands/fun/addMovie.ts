@@ -1,22 +1,17 @@
 const axios = require('axios');
 const mtgMessage = require('../../util/mtgCard');
 import {Command} from '../../Command';
-import {addResponse} from '../../util/queries';
+import {addMovie} from '../../util/queries';
 import discordClient from '../../bot';
 
-export const AddResponse = new Command('AddResponse', {
-    id: "add",
+export const AddMovie = new Command('AddMovie', {
+    id: "addMovie",
     description: "add response to database",
-    aliases: ["add"],
-    examples: ["!add"],
+    aliases: ["addMovie", "watch", "toWatch"],
+    examples: ["!addMovie"],
     args: [
         {
-            key: 'resName',
-            type: 'string',
-            default: 'random123',
-        },
-        {
-            key: 'resText',
+            key: 'movieName',
             type: 'string',
             infinite: true,
             default: 'random123',
@@ -24,15 +19,15 @@ export const AddResponse = new Command('AddResponse', {
     ],
     run: async (msg: any, args: any) => {
         console.log(args);
-        if(args.resText != "random123") {
-            let resText = args.resText.join(" ");
-            console.log('new resText', resText);
+        if(args.movieName != "random123") {
+            let movieName = args.movieName.join(" ");
+            console.log('new resText', movieName);
 
             try {
-                let res = await addResponse(args.resName, args.resText);
+                let res = await addMovie(args.movieName);
                 console.log(res);
                 discordClient.loadStoredResponses();
-                return `Added! Type !${args.resName} to see the new response`;
+                return `Added ${args.movieName} to the watch list.`;
             } catch(error) {
                 console.log(error);
                 return error;
