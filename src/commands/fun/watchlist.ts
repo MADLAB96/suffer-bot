@@ -7,8 +7,8 @@ import discordClient from '../../bot';
 export const Watchlist = new Command('Watchlist', {
     id: "watchlist",
     description: "add response to database",
-    aliases: ["add"],
-    examples: ["!add"],
+    aliases: ["watchlist"],
+    examples: ["!watchlist"],
     run: async (msg: any, args: any) => {
         try {
             let res = await getWatchlist();
