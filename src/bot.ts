@@ -14,5 +14,9 @@ let dc = new DiscordClient();
 
 import { getResponses, getWatchlist } from './util/queries';
 
-console.log(getResponses());
-console.log(getWatchlist());
+async function test() {
+    console.log('responses', await getResponses());
+    console.log('watchlist', await getWatchlist());
+}
+
+test();
