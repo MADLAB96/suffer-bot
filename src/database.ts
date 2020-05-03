@@ -3,6 +3,39 @@ var auth = require('../auth.json');
 // ====== postgres ==========
 // ==========================
 
+
+// ==========================
+// THIS IS MOVIE NIGHT COMMAND
+// ==========================
+//  - Will be able to add movies to 'watchlist'
+//    - movies can be removed or changed to watch
+//    - TODO: add ratings table
+//    - TODO: add movie database scraping for genre and other misc data. 
+//  - Watchlist will be get(movies where ifWatched == false)
+//  - TODO: add random picker
+// ==========================
+/*
+CREATE TABLE movies (
+    name TEXT PRIMARY KEY UNIQUE,
+    ifWatched BOOLEAN DEFAULT FALSE,
+    createdBy INTEGER NOT NULL,
+    createdOn DATE DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_user_id FOREIGN KEY (createdBy) REFERENCES botUser(id)
+);
+
+CREATE TYPE accessType AS ENUM ('discord', 'twitch', 'slack');
+CREATE TYPE privType AS ENUM ('full', 'partial', 'none');
+
+INSERT INTO botUser (id, access, privilege, tts, userName) VALUES (DEFAULT, 'discord', 'full', true, 'madlab');
+INSERT INTO response (name, response, createdBy, tts) VALUES ('test1', 'this is a test', 1, false);
+*/
+
+// ==========================
+// THIS IS RESPONSE COMMAND
+// ==========================
+//  - Here are the loaded commands
+//  - TODO: dont use those ENUMs. the other services aren't being used anyways.
+// ==========================
 /*
 CREATE TABLE response (
     name TEXT PRIMARY KEY UNIQUE,
@@ -16,7 +49,14 @@ CREATE TABLE response (
 CREATE TABLE botUser (
     id SERIAL UNIQUE,
     access accessType,
-    privilege privType,
+    tts BOOLEAN NOT NULL,
+    userName TEXT NOT NULL
+);
+
+CREATE TABLE botUser (
+    id SERIAL UNIQUE,
+    access accessType,
+    privilege privType DEFAULT 'full',
     tts BOOLEAN NOT NULL,
     userName TEXT NOT NULL
 );
@@ -24,7 +64,7 @@ CREATE TABLE botUser (
 CREATE TYPE accessType AS ENUM ('discord', 'twitch', 'slack');
 CREATE TYPE privType AS ENUM ('full', 'partial', 'none');
 
-INSERT INTO botUser (id, access, privilege, tts, userName) VALUES (DEFAULT, 'discord', 'full', true, 'madlab');
+INSERT INTO botUser (id, access, tts, userName) VALUES (DEFAULT, 'discord', true, 'madlab');
 INSERT INTO response (name, response, createdBy, tts) VALUES ('test1', 'this is a test', 1, false);
 */
 
