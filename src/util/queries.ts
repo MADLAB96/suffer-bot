@@ -64,7 +64,7 @@ export async function getAllMovies() {
 
 export async function getWatchlist() {
     try {
-        const readAllQuery = 'SELECT * FROM movies WHERE isWatched == true;';
+        const readAllQuery = 'SELECT * FROM movies WHERE ifWatched = false;';
         const { rows } : any = await query(readAllQuery);
         return rows;
     } catch (error) {
