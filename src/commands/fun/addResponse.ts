@@ -24,11 +24,13 @@ export const AddResponse = new Command('AddResponse', {
     run: async (msg: any, args: any) => {
         console.log(args);
         if(args.resText != "random123") {
-            let resText = args.resText.join("+");
+            let resText = args.resText.join(" ");
             console.log('new resText', resText);
 
             try {
-                return await addResponse(args.resName, args.resText);
+                let res = await addResponse(args.resName, args.resText);
+                console.log(res);
+                return 'reee';
             } catch(error) {
                 console.log(error);
                 return error;
